@@ -1,0 +1,322 @@
+/* ============================================
+   ODALLO GUITARS - PREMIUM LUXURY WEBSITE
+   Clean & Well-Organized CSS
+   ============================================ */
+
+/* -------------------------------------------
+   BASE / GLOBAL STYLES
+------------------------------------------- */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #0a0a0a;
+  color: #F5EDE0;
+  font-family: 'Inter', system-ui, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Selection & Scrollbar */
+::selection {
+  background: #C9A86C;
+  color: #0a0a0a;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #111;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #C9A86C;
+  border-radius: 4px;
+}
+
+/* -------------------------------------------
+   TYPOGRAPHY & GRADIENTS
+------------------------------------------- */
+.text-gold-gradient {
+  background: linear-gradient(135deg, #E8C39E 0%, #C9A86C 50%, #A67C52 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.price-tag {
+  font-family: 'Cormorant Garamond', serif;
+  letter-spacing: 0.02em;
+}
+
+/* -------------------------------------------
+   NAVIGATION (Premium Version)
+------------------------------------------- */
+.nav-link {
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: #C9A86C;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: linear-gradient(to right, #C9A86C, #E8C39E);
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+.nav-scrolled {
+  background: rgba(10, 10, 10, 0.92) !important;
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(201, 168, 108, 0.15);
+}
+
+/* -------------------------------------------
+   HERO SECTION (Premium Animated)
+------------------------------------------- */
+.hero-overlay {
+  background: linear-gradient(
+    135deg,
+    rgba(10, 10, 10, 0.92) 0%,
+    rgba(10, 10, 10, 0.75) 40%,
+    rgba(10, 10, 10, 0.85) 100%
+  );
+}
+
+#home h1 {
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.deco-line {
+  width: 60px;
+  height: 1px;
+  background: linear-gradient(90deg, #C9A86C, transparent);
+}
+
+/* -------------------------------------------
+   CARDS & HOVER EFFECTS
+------------------------------------------- */
+.luxury-card {
+  background: linear-gradient(145deg, #141414 0%, #0f0f0f 100%);
+  border: 1px solid rgba(201, 168, 108, 0.15);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.luxury-card:hover {
+  border-color: rgba(201, 168, 108, 0.45);
+  transform: translateY(-6px);
+  box-shadow: 0 25px 50px -12px rgba(201, 168, 108, 0.15);
+}
+
+.img-zoom {
+  overflow: hidden;
+}
+
+.img-zoom img {
+  transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.img-zoom:hover img {
+  transform: scale(1.08);
+}
+
+/* -------------------------------------------
+   BUTTONS (Premium Feel)
+------------------------------------------- */
+.btn-gold {
+  background: linear-gradient(135deg, #C9A86C 0%, #A67C52 100%);
+  color: #0a0a0a;
+  font-weight: 500;
+  letter-spacing: 2px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-gold:hover {
+  background: linear-gradient(135deg, #E8C39E 0%, #C9A86C 100%);
+  transform: translateY(-3px);
+  box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 
+              0 8px 10px -6px rgb(0 0 0 / 0.1);
+}
+
+.btn-outline {
+  border: 1px solid rgba(201, 168, 108, 0.5);
+  color: #C9A86C;
+  transition: all 0.3s ease;
+}
+
+.btn-outline:hover {
+  background: rgba(201, 168, 108, 0.1);
+  border-color: #C9A86C;
+}
+
+/* -------------------------------------------
+   SERVICES & LIST ITEMS
+------------------------------------------- */
+.service-item {
+  border-bottom: 1px solid rgba(201, 168, 108, 0.1);
+  transition: background 0.3s ease;
+}
+
+.service-item:hover {
+  background: rgba(201, 168, 108, 0.04);
+}
+
+/* -------------------------------------------
+   ANIMATIONS (Premium Staggered)
+------------------------------------------- */
+.fade-up {
+  opacity: 0;
+  transform: translateY(40px);
+  animation: fadeUpPremium 1s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+}
+
+@keyframes fadeUpPremium {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* -------------------------------------------
+   MOBILE MENU
+------------------------------------------- */
+.mobile-menu {
+  transform: translateX(100%);
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mobile-menu.open {
+  transform: translateX(0);
+}
+
+/* -------------------------------------------
+   WHATSAPP FLOATING BUTTON.wa-float {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 50;
+  animation: pulse-gold 2.5s infinite;
+}
+
+@keyframes pulse-gold {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(201, 168, 108, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 0 12px rgba(201, 168, 108, 0);
+  }
+}
+
+------------------------------------------- */
+
+/* -------------------------------------------
+   SECTION DIVIDERS
+------------------------------------------- */
+.section-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201, 168, 108, 0.4), transparent);
+}
+
+
+/* Premium Carousel Styles */
+.carousel-track img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+.carousel-track img.active {
+    opacity: 1;
+    z-index: 1;
+}
+.carousel-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(201, 168, 108, 0.3);
+    border: 1px solid rgba(201, 168, 108, 0.5);
+    transition: all 0.4s ease;
+    cursor: pointer;
+}
+.carousel-dot.active {
+    background: #C9A86C;
+    border-color: #C9A86C;
+    box-shadow: 0 0 8px rgba(201, 168, 108, 0.6);
+    transform: scale(1.2);
+}
+
+/* Add this to style.css */
+.img-zoom.luxury-card {
+  border: 1px solid rgba(201, 168, 108, 0.25);
+  box-shadow: 
+    0 0 0 1px rgba(201, 168, 108, 0.08),
+    0 25px 50px -12px rgba(0, 0, 0, 0.6),
+    inset 0 0 40px rgba(201, 168, 108, 0.03);
+}
+
+.carousel-track {
+  border-radius: 2px;
+  overflow: hidden;
+}
+.carousel-track img {
+  transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 8s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.carousel-track img.active {
+  opacity: 1;
+  z-index: 1;
+  transform: scale(1.06); /* subtle zoom */
+}
+.carousel-dot {
+  width: 22px;
+  height: 3px;
+  border-radius: 2px;
+  background: rgba(201, 168, 108, 0.25);
+  border: none;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.carousel-dot.active {
+  width: 36px;
+  background: linear-gradient(90deg, #C9A86C, #E8C39E);
+  box-shadow: 0 0 12px rgba(201, 168, 108, 0.5);
+  transform: none;
+}
+
+#carousel-prev,
+#carousel-next {
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgba(201, 168, 108, 0.4);
+  background: rgba(10, 10, 10, 0.65);
+  backdrop-filter: blur(12px);
+  color: #C9A86C;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#carousel-prev:hover,
+#carousel-next:hover {
+  background: rgba(201, 168, 108, 0.15);
+  border-color: #C9A86C;
+  color: #F5EDE0;
+  box-shadow: 0 0 20px rgba(201, 168, 108, 0.25);
+  transform: translateY(-50%) scale(1.08);
+}
