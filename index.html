@@ -95,13 +95,13 @@ body{background-color:#0a0a0a;color:#F5EDE0;font-family:'Inter',system-ui,sans-s
   </nav>
 
  
-<section id="home" class="relative min-h-[100vh] flex items-center">
-  <div class="absolute inset-0">
-    <img src="images/showroom.jpg" alt="Odallo Guitars Showroom" 
-         class="w-full h-full object-cover object-center" />
+<section id="home" class="relative min-h-[100vh] flex items-center overflow-hidden">
+  <div class="absolute inset-0 overflow-hidden">
+    <img id="hero-img" src="images/showroom.jpg" alt="Odallo Guitars Showroom" 
+         class="w-full h-full object-cover object-center hero-parallax-img" />
     
     <!-- Stronger overlay that fades into black at the bottom -->
-    <div class="absolute inset-0 bg-gradient-to-b from-black/80 via-black/70 to-black/95"></div>
+    <div class="absolute inset-0 bg-gradient-to-b from-black/80 via-black/70 to-black/95 pointer-events-none"></div>
   </div>
 
   <div class="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 pt-28 pb-32 w-full">

@@ -154,3 +154,87 @@ const IMAGE_LIST = [
 })();
 
 document.querySelector('#services .fade-up').classList.add('visible');
+
+/* ======================================================
+   HERO PARALLAX – Device Tilt + Mouse Move
+   ====================================================== */
+(function () {
+  const heroImg = document.getElementById('hero-img');
+  const heroSection = document.getElementById('home');
+  if (!heroImg || !heroSection) return;
+
+  let isActive = false;
+  let currentX = 0;
+  let currentY = 0;
+  let targetX = 0;
+  let targetY = 0;
+
+  // ★ Scale values ★
+  const isMobile = window.matchMedia('(max-width: 768px)').matches;
+  const baseScale = isMobile ? 1.40 : 1.28;   // Mobile 1.40×  |  Desktop 1.28×
+  const maxOffset = isMobile ? 22 : 28;       // less movement on mobile
+  const ease = 0.09;
+
+  function animate() {
+    currentX += (targetX - currentX) * ease;
+    currentY += (targetY - currentY) * ease;
+    heroImg.style.transform = `scale(${baseScale}) translate(${currentX}px, ${currentY}px)`;
+    requestAnimationFrame(animate);
+  }
+  requestAnimationFrame(animate);
+
+  function activate() {
+    if (!isActive) {
+      isActive = true;
+      heroImg.classList.add('parallax-active');
+    }
+  }
+
+  // Mouse (desktop)
+  heroSection.addEventListener('mousemove', (e) => {
+    activate();
+    const rect = heroSection.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+    targetX = x * maxOffset * 2;
+    targetY = y * maxOffset * 1.4;
+  });
+
+  heroSection.addEventListener('mouseleave', () => {
+    targetX = 0;
+    targetY = 0;
+  });
+
+  // Device tilt (mobile)
+  function handleOrientation(e) {
+    if (e.gamma === null || e.beta === null) return;
+    activate();
+    let x = Math.max(-25, Math.min(25, e.gamma)) / 25;
+    let y = Math.max(-25, Math.min(25, e.beta - 45)) / 25;
+    targetX = x * maxOffset * 1.5;
+    targetY = y * maxOffset * 1.1;
+  }
+
+  function requestOrientationPermission() {
+    if (typeof DeviceOrientationEvent !== 'undefined' &&
+        typeof DeviceOrientationEvent.requestPermission === 'function') {
+      const ask = () => {
+        DeviceOrientationEvent.requestPermission()
+          .then(state => {
+            if (state === 'granted') {
+              window.addEventListener('deviceorientation', handleOrientation, true);
+            }
+          })
+          .catch(console.error);
+        heroSection.removeEventListener('click', ask);
+        heroSection.removeEventListener('touchstart', ask);
+      };
+      heroSection.addEventListener('click', ask, { once: true });
+      heroSection.addEventListener('touchstart', ask, { once: true });
+    } else if (window.DeviceOrientationEvent) {
+      window.addEventListener('deviceorientation', handleOrientation, true);
+    }
+  }
+
+  requestOrientationPermission();
+})();
