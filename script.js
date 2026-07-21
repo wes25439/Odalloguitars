@@ -10,16 +10,23 @@ window.addEventListener('scroll', () => {
 
 // Mobile menu
 // Mobile menu
+// Mobile menu
 const menuBtn = document.getElementById('menu-btn');
 const closeBtn = document.getElementById('close-menu');
 const mobileMenu = document.getElementById('mobile-menu');
 const mobileLinks = document.querySelectorAll('.mobile-link');
 
-function closeMobileMenu() {
-  mobileMenu.classList.remove('open');
+function openMobileMenu() {
+  mobileMenu.classList.add('open');
+  document.body.style.overflow = 'hidden'; // Prevents page from scrolling behind the menu
 }
 
-menuBtn.addEventListener('click', () => mobileMenu.classList.add('open'));
+function closeMobileMenu() {
+  mobileMenu.classList.remove('open');
+  document.body.style.overflow = ''; // Restores scrolling
+}
+
+menuBtn.addEventListener('click', openMobileMenu);
 closeBtn.addEventListener('click', closeMobileMenu);
 
 // Close when clicking any navigation link
@@ -272,4 +279,7 @@ document.querySelector('#services .fade-up').classList.add('visible');
     }, 1800); // waits for the line animation to finish
   });
 })();
+
+
+
 
