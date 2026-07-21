@@ -156,19 +156,29 @@ const IMAGE_LIST = [
 document.querySelector('#services .fade-up').classList.add('visible');
 
 /* ======================================================
-   HERO PARALLAX – Mobile Tilt Only (Improved iOS support)
+   HERO PARALLAX – Mobile Tilt Only
    ====================================================== */
 (function () {
   const heroImg = document.getElementById('hero-img');
   const heroSection = document.getElementById('home');
   if (!heroImg || !heroSection) return;
 
-  const isMobile = window.matchMedia('(max-width: 768px)').matches || ('ontouchstart' in window);
-  if (!isMobile) return; // desktop stays normal
+  // Only run the effect on mobile / touch devices
+  const isMobile = window.matchMedia('(max-width: 768px)').matches || 
+                   ('ontouchstart' in window);
+
+  if (!isMobile) {
+    // On desktop → just keep a very subtle Ken-Burns (or remove completely)
+    return; // ← this removes all movement on desktop
+  }
 
   let isActive = false;
-  let currentX = 0, currentY = 0, targetX = 0, targetY = 0;
-  const baseScale = 1.40;
+  let currentX = 0;
+  let currentY = 0;
+  let targetX = 0;
+  let targetY = 0;
+
+  const baseScale = 1.40;     // larger scale so edges never show
   const maxOffset = 22;
   const ease = 0.09;
 
@@ -187,37 +197,39 @@ document.querySelector('#services .fade-up').classList.add('visible');
     }
   }
 
+  // Device tilt only
   function handleOrientation(e) {
     if (e.gamma === null || e.beta === null) return;
     activate();
-    const x = Math.max(-25, Math.min(25, e.gamma)) / 25;
-    const y = Math.max(-25, Math.min(25, e.beta - 45)) / 25;
+
+    let x = Math.max(-25, Math.min(25, e.gamma)) / 25;
+    let y = Math.max(-25, Math.min(25, e.beta - 45)) / 25;
+
     targetX = x * maxOffset * 1.5;
     targetY = y * maxOffset * 1.1;
   }
 
-  // Better iOS permission handling
-  async function enableTilt() {
+  // iOS permission
+  function requestOrientationPermission() {
     if (typeof DeviceOrientationEvent !== 'undefined' &&
         typeof DeviceOrientationEvent.requestPermission === 'function') {
-      try {
-        const state = await DeviceOrientationEvent.requestPermission();
-        if (state === 'granted') {
-          window.addEventListener('deviceorientation', handleOrientation, true);
-        }
-      } catch (err) {
-        console.log('Permission denied or error', err);
-      }
-    } else {
-      // Android / other
+      const ask = () => {
+        DeviceOrientationEvent.requestPermission()
+          .then(state => {
+            if (state === 'granted') {
+              window.addEventListener('deviceorientation', handleOrientation, true);
+            }
+          })
+          .catch(console.error);
+        heroSection.removeEventListener('click', ask);
+        heroSection.removeEventListener('touchstart', ask);
+      };
+      heroSection.addEventListener('click', ask, { once: true });
+      heroSection.addEventListener('touchstart', ask, { once: true });
+    } else if (window.DeviceOrientationEvent) {
       window.addEventListener('deviceorientation', handleOrientation, true);
     }
   }
 
-  // Trigger permission on first touch anywhere on the hero
-  heroSection.addEventListener('touchstart', function once() {
-    enableTilt();
-    heroSection.removeEventListener('touchstart', once);
-  }, { once: true });
-
+  requestOrientationPermission();
 })();
