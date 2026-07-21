@@ -193,15 +193,40 @@ body {
 /* -------------------------------------------
    MOBILE MENU
 ------------------------------------------- */
+/* -------------------------------------------
+   PREMIUM MOBILE MENU
+------------------------------------------- */
 .mobile-menu {
   transform: translateX(100%);
-  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  visibility: hidden;
 }
 
 .mobile-menu.open {
   transform: translateX(0);
+  visibility: visible;
 }
 
+/* Staggered entrance for links */
+.mobile-menu.open .mobile-link {
+  animation: mobileLinkIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.mobile-menu.open .mobile-link:nth-child(1) { animation-delay: 0.1s; }
+.mobile-menu.open .mobile-link:nth-child(2) { animation-delay: 0.18s; }
+.mobile-menu.open .mobile-link:nth-child(3) { animation-delay: 0.26s; }
+.mobile-menu.open .mobile-link:nth-child(4) { animation-delay: 0.34s; }
+
+@keyframes mobileLinkIn {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 /* -------------------------------------------
    WHATSAPP FLOATING BUTTON.wa-float {
   position: fixed;
@@ -418,3 +443,33 @@ body {
     z-index: 1;
   }
 }
+
+/* -------------------------------------------
+   ELEGANT LOADING SCREEN
+------------------------------------------- */
+#loader {
+  transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+
+#loader.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+#loader-logo {
+  transition: opacity 1s ease 0.2s;
+}
+
+#loader-logo.show {
+  opacity: 1;
+}
+
+#loader-line {
+  transition: transform 1.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#loader-line.animate {
+  transform: scaleX(1);
+}
+

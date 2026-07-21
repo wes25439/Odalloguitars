@@ -9,17 +9,30 @@ window.addEventListener('scroll', () => {
 });
 
 // Mobile menu
+// Mobile menu
 const menuBtn = document.getElementById('menu-btn');
 const closeBtn = document.getElementById('close-menu');
 const mobileMenu = document.getElementById('mobile-menu');
 const mobileLinks = document.querySelectorAll('.mobile-link');
 
+function closeMobileMenu() {
+  mobileMenu.classList.remove('open');
+}
+
 menuBtn.addEventListener('click', () => mobileMenu.classList.add('open'));
-closeBtn.addEventListener('click', () => mobileMenu.classList.remove('open'));
+closeBtn.addEventListener('click', closeMobileMenu);
+
+// Close when clicking any navigation link
 mobileLinks.forEach(link => {
-  link.addEventListener('click', () => mobileMenu.classList.remove('open'));
+  link.addEventListener('click', closeMobileMenu);
 });
 
+// Close when user scrolls
+window.addEventListener('scroll', () => {
+  if (mobileMenu.classList.contains('open')) {
+    closeMobileMenu();
+  }
+}, { passive: true });
 // Fade-up on scroll
 const fadeEls = document.querySelectorAll('.fade-up');
 const observer = new IntersectionObserver((entries) => {
@@ -233,3 +246,30 @@ document.querySelector('#services .fade-up').classList.add('visible');
 
   requestOrientationPermission();
 })();
+
+/* ======================================================
+   ELEGANT LOADING SCREEN
+   ====================================================== */
+(function () {
+  const loader = document.getElementById('loader');
+  const logo = document.getElementById('loader-logo');
+  const line = document.getElementById('loader-line');
+
+  if (!loader) return;
+
+  // Start animation shortly after page begins loading
+  window.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => {
+      logo.classList.add('show');
+      line.classList.add('animate');
+    }, 100);
+  });
+
+  // Hide loader when everything is ready
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      loader.classList.add('hidden');
+    }, 1800); // waits for the line animation to finish
+  });
+})();
+

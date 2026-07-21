@@ -62,7 +62,13 @@ body{background-color:#0a0a0a;color:#F5EDE0;font-family:'Inter',system-ui,sans-s
 </style>
 </head>
 <body class="antialiased">
-
+  <!-- LOADING SCREEN -->
+<div id="loader" class="fixed inset-0 z-[100] bg-odallo-black flex flex-col items-center justify-center">
+  <img src="images/odallo-logo.jpg" alt="Odallo Guitars" class="h-20 md:h-24 w-auto object-contain mb-8 opacity-0" id="loader-logo">
+  <div class="w-32 h-px bg-odallo-gold/30 relative overflow-hidden">
+    <div id="loader-line" class="absolute inset-0 bg-odallo-gold origin-left scale-x-0"></div>
+  </div>
+</div>
   <!-- NAVBAR -->
   <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500">
     <div class="max-w-7xl mx-auto px-5 sm:px-8">
@@ -82,15 +88,54 @@ body{background-color:#0a0a0a;color:#F5EDE0;font-family:'Inter',system-ui,sans-s
         </button>
       </div>
     </div>
-    <div id="mobile-menu" class="mobile-menu fixed inset-0 bg-odallo-black z-40 lg:hidden flex flex-col justify-center items-center gap-8">
-      <button id="close-menu" class="absolute top-6 right-6 text-odallo-cream p-2">
-        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"/></svg>
-      </button>
-      <a href="#custom" class="mobile-link text-2xl font-serif text-odallo-cream tracking-wide">Custom Builds</a>
-      <a href="#services" class="mobile-link text-2xl font-serif text-odallo-cream tracking-wide">Services</a>
-      <a href="#restoration" class="mobile-link text-2xl font-serif text-odallo-cream tracking-wide">Restoration</a>
-      <a href="#accessories" class="mobile-link text-2xl font-serif text-odallo-cream tracking-wide">Accessories</a>
-      <a href="#contact" class="btn-gold px-8 py-3 text-sm tracking-widest uppercase rounded-sm mt-4">Book Now</a>
+          <!-- PREMIUM MOBILE MENU -->
+    <div id="mobile-menu" class="mobile-menu fixed inset-0 z-40 lg:hidden flex flex-col">
+      <!-- Dark elegant background -->
+      <div class="absolute inset-0 bg-odallo-black/95 backdrop-blur-xl"></div>
+
+      <!-- Content -->
+      <div class="relative z-10 flex flex-col h-full px-8 pt-10 pb-12">
+        
+        <!-- Top bar: Logo + Close -->
+        <div class="flex items-center justify-between mb-16">
+          <img src="images/odallo-logo.jpg" alt="Odallo Guitars" class="h-16 w-auto object-contain opacity-90" />
+          <button id="close-menu" class="w-12 h-12 rounded-full border border-odallo-gold/30 flex items-center justify-center text-odallo-cream hover:border-odallo-gold hover:text-odallo-gold transition-all duration-300">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Navigation Links -->
+        <nav class="flex flex-col gap-8 flex-1 justify-center">
+          <a href="#custom" class="mobile-link group">
+            <span class="font-serif text-3xl text-odallo-cream group-hover:text-odallo-gold transition-colors duration-300">Custom Builds</span>
+            <div class="h-px w-0 group-hover:w-16 bg-odallo-gold/60 transition-all duration-500 mt-2"></div>
+          </a>
+          <a href="#services" class="mobile-link group">
+            <span class="font-serif text-3xl text-odallo-cream group-hover:text-odallo-gold transition-colors duration-300">Services</span>
+            <div class="h-px w-0 group-hover:w-16 bg-odallo-gold/60 transition-all duration-500 mt-2"></div>
+          </a>
+          <a href="#restoration" class="mobile-link group">
+            <span class="font-serif text-3xl text-odallo-cream group-hover:text-odallo-gold transition-colors duration-300">Restoration</span>
+            <div class="h-px w-0 group-hover:w-16 bg-odallo-gold/60 transition-all duration-500 mt-2"></div>
+          </a>
+          <a href="#accessories" class="mobile-link group">
+            <span class="font-serif text-3xl text-odallo-cream group-hover:text-odallo-gold transition-colors duration-300">Accessories</span>
+            <div class="h-px w-0 group-hover:w-16 bg-odallo-gold/60 transition-all duration-500 mt-2"></div>
+          </a>
+        </nav>
+
+        <!-- Bottom CTA -->
+        <div class="mt-auto pt-10">
+          <a href="#contact" class="btn-gold w-full py-4 text-sm tracking-widest uppercase rounded-sm text-center block">
+            Book a Consultation
+          </a>
+          <p class="text-center text-odallo-muted text-xs mt-6 tracking-widest uppercase">
+            Nairobi • Kenya
+          </p>
+        </div>
+      </div>
     </div>
   </nav>
 
