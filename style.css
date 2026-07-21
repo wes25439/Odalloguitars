@@ -402,4 +402,19 @@ body {
   .hero-label {
     font-size: 9px !important;
   }
+}/* Warm color tint on hero image – mobile only */
+@media (max-width: 768px) {
+  #home .absolute.inset-0::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      135deg,
+      rgba(201, 168, 108, 0.18) 0%,
+      rgba(139, 69, 19, 0.12) 50%,
+      rgba(10, 10, 10, 0.25) 100%
+    );
+    pointer-events: none;
+    z-index: 1;
+  }
 }
