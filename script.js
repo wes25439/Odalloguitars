@@ -156,12 +156,21 @@ const IMAGE_LIST = [
 document.querySelector('#services .fade-up').classList.add('visible');
 
 /* ======================================================
-   HERO PARALLAX – Device Tilt + Mouse Move
+   HERO PARALLAX – Mobile Tilt Only
    ====================================================== */
 (function () {
   const heroImg = document.getElementById('hero-img');
   const heroSection = document.getElementById('home');
   if (!heroImg || !heroSection) return;
+
+  // Only run the effect on mobile / touch devices
+  const isMobile = window.matchMedia('(max-width: 768px)').matches || 
+                   ('ontouchstart' in window);
+
+  if (!isMobile) {
+    // On desktop → just keep a very subtle Ken-Burns (or remove completely)
+    return; // ← this removes all movement on desktop
+  }
 
   let isActive = false;
   let currentX = 0;
@@ -169,10 +178,8 @@ document.querySelector('#services .fade-up').classList.add('visible');
   let targetX = 0;
   let targetY = 0;
 
-  // ★ Scale values ★
-  const isMobile = window.matchMedia('(max-width: 768px)').matches;
-  const baseScale = isMobile ? 1.40 : 1.28;   // Mobile 1.40×  |  Desktop 1.28×
-  const maxOffset = isMobile ? 22 : 28;       // less movement on mobile
+  const baseScale = 1.40;     // larger scale so edges never show
+  const maxOffset = 22;
   const ease = 0.09;
 
   function animate() {
@@ -190,31 +197,19 @@ document.querySelector('#services .fade-up').classList.add('visible');
     }
   }
 
-  // Mouse (desktop)
-  heroSection.addEventListener('mousemove', (e) => {
-    activate();
-    const rect = heroSection.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width - 0.5;
-    const y = (e.clientY - rect.top) / rect.height - 0.5;
-    targetX = x * maxOffset * 2;
-    targetY = y * maxOffset * 1.4;
-  });
-
-  heroSection.addEventListener('mouseleave', () => {
-    targetX = 0;
-    targetY = 0;
-  });
-
-  // Device tilt (mobile)
+  // Device tilt only
   function handleOrientation(e) {
     if (e.gamma === null || e.beta === null) return;
     activate();
+
     let x = Math.max(-25, Math.min(25, e.gamma)) / 25;
     let y = Math.max(-25, Math.min(25, e.beta - 45)) / 25;
+
     targetX = x * maxOffset * 1.5;
     targetY = y * maxOffset * 1.1;
   }
 
+  // iOS permission
   function requestOrientationPermission() {
     if (typeof DeviceOrientationEvent !== 'undefined' &&
         typeof DeviceOrientationEvent.requestPermission === 'function') {
