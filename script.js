@@ -252,7 +252,7 @@ const ACCESSORIES_IMAGES = [
 })();
 
 /* ======================================================
-   HERO PARALLAX – Mobile Tilt + Touch Fallback
+   HERO PARALLAX – iPhone Safari friendly
    ====================================================== */
 (function () {
   const heroImg = document.getElementById('hero-img');
@@ -261,24 +261,20 @@ const ACCESSORIES_IMAGES = [
 
   const isMobile = window.matchMedia('(max-width: 768px)').matches || 
                    ('ontouchstart' in window);
-
-  if (!isMobile) return; // desktop keeps the CSS Ken-Burns only
+  if (!isMobile) return;
 
   let isActive = false;
-  let currentX = 0;
-  let currentY = 0;
-  let targetX = 0;
-  let targetY = 0;
+  let currentX = 0, currentY = 0;
+  let targetX = 0, targetY = 0;
 
   const baseScale = 1.25;
-  const maxOffset = 28;
-  const ease = 0.1;
+  const maxOffset = 30;
+  const ease = 0.12;
 
-  // Always run the smooth animation loop
   function animate() {
     currentX += (targetX - currentX) * ease;
     currentY += (targetY - currentY) * ease;
-    heroImg.style.transform = `scale(${baseScale}) translate(${currentX}px, ${currentY}px)`;
+    heroImg.style.transform = `scale(${baseScale}) translate3d(${currentX}px, ${currentY}px, 0)`;
     requestAnimationFrame(animate);
   }
   requestAnimationFrame(animate);
@@ -286,72 +282,77 @@ const ACCESSORIES_IMAGES = [
   function activate() {
     if (!isActive) {
       isActive = true;
-      heroImg.classList.add('parallax-active'); // kills the CSS Ken-Burns
+      heroImg.classList.add('parallax-active');
     }
   }
 
-  // ---------- 1. Device Orientation (real tilt) ----------
+  // ---------- Device Orientation (real tilt) ----------
   function handleOrientation(e) {
-    if (e.gamma === null || e.beta === null) return;
+    if (e.gamma == null || e.beta == null) return;
     activate();
 
-    let x = Math.max(-30, Math.min(30, e.gamma)) / 30;
-    let y = Math.max(-30, Math.min(30, e.beta - 45)) / 30;
+    const x = Math.max(-1, Math.min(1, e.gamma / 35));
+    const y = Math.max(-1, Math.min(1, (e.beta - 45) / 35));
 
-    targetX = x * maxOffset * 1.5;
+    targetX = x * maxOffset * 1.6;
     targetY = y * maxOffset * 0.9;
   }
 
-  function requestOrientationPermission() {
+  function enableOrientation() {
+    window.addEventListener('deviceorientation', handleOrientation, true);
+  }
+
+  // iOS 13+ permission flow
+  function requestPermission() {
     if (typeof DeviceOrientationEvent !== 'undefined' &&
         typeof DeviceOrientationEvent.requestPermission === 'function') {
-      // iOS – needs a user gesture
-      const ask = () => {
-        DeviceOrientationEvent.requestPermission()
-          .then(state => {
-            if (state === 'granted') {
-              window.addEventListener('deviceorientation', handleOrientation, true);
-            }
-          })
-          .catch(console.error);
-        heroSection.removeEventListener('click', ask);
-        heroSection.removeEventListener('touchstart', ask);
-      };
-      heroSection.addEventListener('click', ask, { once: true });
-      heroSection.addEventListener('touchstart', ask, { once: true });
-    } else if (window.DeviceOrientationEvent) {
-      // Android & others
-      window.addEventListener('deviceorientation', handleOrientation, true);
+
+      DeviceOrientationEvent.requestPermission()
+        .then(state => {
+          if (state === 'granted') {
+            enableOrientation();
+          } else {
+            console.log('Motion permission denied');
+          }
+        })
+        .catch(console.error);
+    } else {
+      // Android or older iOS
+      enableOrientation();
     }
   }
 
-  requestOrientationPermission();
+  // Ask for permission on first tap/click of the hero
+  const askOnce = () => {
+    requestPermission();
+    heroSection.removeEventListener('click', askOnce);
+    heroSection.removeEventListener('touchstart', askOnce);
+  };
+  heroSection.addEventListener('click', askOnce, { once: true });
+  heroSection.addEventListener('touchstart', askOnce, { once: true });
 
-  // ---------- 2. Touch / Finger drag fallback ----------
-  // This makes the effect work even when orientation is blocked
-  let isTouching = false;
+  // ---------- Touch drag fallback (always works) ----------
+  let touching = false;
 
-  heroSection.addEventListener('touchstart', (e) => {
-    isTouching = true;
+  heroSection.addEventListener('touchstart', () => {
+    touching = true;
     activate();
   }, { passive: true });
 
   heroSection.addEventListener('touchmove', (e) => {
-    if (!isTouching) return;
-    const touch = e.touches[0];
+    if (!touching) return;
+    const t = e.touches[0];
     const rect = heroSection.getBoundingClientRect();
 
-    // Map finger position to -1 → 1
-    const x = ((touch.clientX - rect.left) / rect.width - 0.5) * 2;
-    const y = ((touch.clientY - rect.top) / rect.height - 0.5) * 2;
+    const x = ((t.clientX - rect.left) / rect.width - 0.5) * 2;
+    const y = ((t.clientY - rect.top) / rect.height - 0.5) * 2;
 
-    targetX = x * maxOffset * 1.3;
-    targetY = y * maxOffset * 0.8;
+    targetX = x * maxOffset * 1.4;
+    targetY = y * maxOffset * 0.9;
   }, { passive: true });
 
   heroSection.addEventListener('touchend', () => {
-    isTouching = false;
-    // gently return to center
+    touching = false;
     targetX = 0;
     targetY = 0;
   }, { passive: true });
