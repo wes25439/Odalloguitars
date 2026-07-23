@@ -360,15 +360,16 @@ const ACCESSORIES_IMAGES = [
 })();
 
 /* ======================================================
-   ELEGANT LOADING SCREEN
+   ELEGANT LOADING SCREEN + HERO ANIMATIONS
    ====================================================== */
 (function () {
   const loader = document.getElementById('loader');
-  const logo = document.getElementById('loader-logo');
-  const line = document.getElementById('loader-line');
+  const logo  = document.getElementById('loader-logo');
+  const line  = document.getElementById('loader-line');
 
   if (!loader) return;
 
+  // 1. Start logo + line animation early
   window.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
       logo.classList.add('show');
@@ -376,9 +377,262 @@ const ACCESSORIES_IMAGES = [
     }, 100);
   });
 
+  // 2. When page is fully loaded
   window.addEventListener('load', () => {
     setTimeout(() => {
+      // Hide the loading screen
       loader.classList.add('hidden');
+
+      // Wait a moment for the fade-out, then start premium animations
+      setTimeout(() => {
+        document.body.classList.add('page-loaded');
+
+        // Gold line draws itself
+        const deco = document.querySelector('#home .deco-line');
+        if (deco) deco.classList.add('drawn');
+
+        // Hero title words appear one by one
+        const title = document.querySelector('.hero-title');
+        if (title) title.classList.add('animate');
+
+        // Fade-up elements already in view
+        document.querySelectorAll('.fade-up').forEach(el => {
+          const rect = el.getBoundingClientRect();
+          if (rect.top < window.innerHeight - 40) {
+            el.classList.add('visible');
+          }
+        });
+
+        // Typewriter starts after the title finishes
+        setTimeout(startTypewriter, 2200);
+
+      }, 700);
     }, 1800);
   });
+})();
+
+
+/* ======================================================
+   TYPEWRITER – Hero subtitle
+   ====================================================== */
+function startTypewriter() {
+  const el = document.getElementById('typewriter');
+  if (!el) return;
+
+  const text = "masterful fretwork, and the soul of true craftsmanship.";
+  let i = 0;
+
+  function type() {
+    if (i < text.length) {
+      el.textContent += text.charAt(i);
+      i++;
+      setTimeout(type, 42); // typing speed
+    }
+  }
+
+  type();
+}
+
+
+/* ======================================================
+   STAGGERED SERVICE ITEMS
+   ====================================================== */
+(function () {
+  const items = document.querySelectorAll('#services .service-item');
+  if (!items.length) return;
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        items.forEach((item, index) => {
+          setTimeout(() => {
+            item.classList.add('show');
+          }, index * 120); // 120ms delay between each row
+        });
+        observer.disconnect(); // only run once
+      }
+    });
+  }, { threshold: 0.15 });
+
+  // Observe the services list container
+  const servicesList = document.querySelector('#services .space-y-0');
+  if (servicesList) observer.observe(servicesList);
+})();
+
+
+/* ======================================================
+   IMAGE REVEAL (Vincent + circular cards)
+   ====================================================== */
+(function () {
+  const reveals = document.querySelectorAll('.img-reveal');
+  if (!reveals.length) return;
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        // small stagger if multiple are visible at once
+        const delay = entry.target.dataset.delay || 0;
+        setTimeout(() => {
+          entry.target.classList.add('revealed');
+        }, delay);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.2,
+    rootMargin: '0px 0px -40px 0px'
+  });
+
+  reveals.forEach((el, i) => {
+    // optional tiny stagger for the three circular cards
+    if (el.closest('.grid.md\\:grid-cols-3')) {
+      el.dataset.delay = i * 150;
+    }
+    observer.observe(el);
+  });
+})();
+
+/* ======================================================
+   RESTORATION + REFINISHING CARD CAROUSELS
+   ====================================================== */
+function createCardCarousel(trackId, dotsId, prevId, nextId, images) {
+  const track = document.getElementById(trackId);
+  const dotsContainer = document.getElementById(dotsId);
+  const prevBtn = document.getElementById(prevId);
+  const nextBtn = document.getElementById(nextId);
+
+  if (!track || !dotsContainer) return;
+
+  let current = 0;
+  let timer;
+
+  images.forEach((src, i) => {
+    const img = document.createElement('img');
+    img.src = src;
+    img.alt = `Slide ${i + 1}`;
+    img.className = i === 0 ? 'active' : '';
+    track.appendChild(img);
+
+    const dot = document.createElement('span');
+    dot.className = `carousel-dot ${i === 0 ? 'active' : ''}`;
+    dot.addEventListener('click', () => goTo(i));
+    dotsContainer.appendChild(dot);
+  });
+
+  const imgs = track.querySelectorAll('img');
+  const dots = dotsContainer.querySelectorAll('.carousel-dot');
+  const total = images.length;
+
+  function goTo(index) {
+    if (index < 0) index = total - 1;
+    if (index >= total) index = 0;
+
+    imgs[current].classList.remove('active');
+    dots[current].classList.remove('active');
+    imgs[index].classList.add('active');
+    dots[index].classList.add('active');
+    current = index;
+  }
+
+  function next() { goTo(current + 1); }
+  function prev() { goTo(current - 1); }
+
+  function start() {
+    stop();
+    timer = setInterval(next, 4000);
+  }
+  function stop() { clearInterval(timer); }
+
+  if (nextBtn) nextBtn.addEventListener('click', () => { next(); start(); });
+  if (prevBtn) prevBtn.addEventListener('click', () => { prev(); start(); });
+
+  const card = track.closest('.group');
+  if (card) {
+    card.addEventListener('mouseenter', stop);
+    card.addEventListener('mouseleave', start);
+  }
+
+  start();
+}
+
+// Restoration card images
+createCardCarousel(
+  'restore-card-carousel',
+  'restore-card-dots',
+  'restore-card-prev',
+  'restore-card-next',
+  [
+    'images/2.jpg',
+    'images/restore3.jpg',
+    'images/estore2.jpg',
+    'images/form1.jpg'
+  ]
+);
+
+// Refinishing card images
+createCardCarousel(
+  'refinish-card-carousel',
+  'refinish-card-dots',
+  'refinish-card-prev',
+  'refinish-card-next',
+  [
+    'images/restore3.jpg',
+    'images/2.jpg',
+    'images/accessories.jpg',
+    'images/showroom.jpg'
+  ]
+);
+
+// Acoustic Guitar mini carousel
+(function() {
+  const slides = document.querySelectorAll('.acoustic-slide');
+  const dots = document.querySelectorAll('.acoustic-dot');
+  const prevBtn = document.getElementById('acoustic-prev');
+  const nextBtn = document.getElementById('acoustic-next');
+  
+  if (!slides.length) return;
+
+  let current = 0;
+  let interval;
+
+  function goTo(index) {
+    slides[current].classList.remove('opacity-100');
+    slides[current].classList.add('opacity-0');
+    dots[current].classList.remove('w-8', 'bg-odallo-gold');
+    dots[current].classList.add('w-3', 'bg-odallo-gold/40');
+
+    current = (index + slides.length) % slides.length;
+
+    slides[current].classList.remove('opacity-0');
+    slides[current].classList.add('opacity-100');
+    dots[current].classList.remove('w-3', 'bg-odallo-gold/40');
+    dots[current].classList.add('w-8', 'bg-odallo-gold');
+  }
+
+  function next() { goTo(current + 1); }
+  function prev() { goTo(current - 1); }
+
+  function startAuto() {
+    clearInterval(interval);
+    interval = setInterval(next, 4500);
+  }
+
+  dots.forEach(dot => {
+    dot.addEventListener('click', () => {
+      goTo(parseInt(dot.dataset.index));
+      startAuto();
+    });
+  });
+
+  if (nextBtn) nextBtn.addEventListener('click', () => { next(); startAuto(); });
+  if (prevBtn) prevBtn.addEventListener('click', () => { prev(); startAuto(); });
+
+  // Pause on hover
+  const container = document.getElementById('acoustic-carousel')?.parentElement;
+  if (container) {
+    container.addEventListener('mouseenter', () => clearInterval(interval));
+    container.addEventListener('mouseleave', startAuto);
+  }
+
+  startAuto();
 })();

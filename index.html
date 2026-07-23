@@ -45,8 +45,6 @@ body{background-color:#0a0a0a;color:#F5EDE0;font-family:'Inter',system-ui,sans-s
 .nav-scrolled{background:rgba(10,10,10,0.92)!important;backdrop-filter:blur(20px);border-bottom:1px solid rgba(201,168,108,0.15)}
 .section-divider{height:1px;background:linear-gradient(90deg,transparent,rgba(201,168,108,0.4),transparent)}
 .price-tag{font-family:'Cormorant Garamond',serif;letter-spacing:0.02em}
-.fade-up{opacity:0;transform:translateY(30px);transition:opacity 0.8s ease,transform 0.8s ease}
-.fade-up.visible{opacity:1;transform:translateY(0)}
 .mobile-menu{transform:translateX(100%);transition:transform 0.45s cubic-bezier(0.4,0,0.2,1);visibility:hidden}
 .mobile-menu.open{transform:translateX(0);visibility:visible}
 .btn-gold{background:linear-gradient(135deg,#C9A86C 0%,#A67C52 100%);color:#0a0a0a;font-weight:500;letter-spacing:0.05em;transition:all 0.3s ease}
@@ -75,12 +73,14 @@ body{background-color:#0a0a0a;color:#F5EDE0;font-family:'Inter',system-ui,sans-s
         <a href="#home" class="flex items-center gap-3 group">
           <img src="images/odallo-logo.jpg" alt="Odallo Guitars" class="h-12 md:h-14 w-auto object-contain transition-transform duration-500 group-hover:scale-105" />
         </a>
-        <div class="hidden lg:flex items-center gap-10">
-           <a href="#custom" class="nav-link text-sm tracking-widest uppercase text-odallo-muted">Custom Builds</a>
-            <a href="#services" class="nav-link text-sm tracking-widest uppercase text-odallo-muted">Services</a>
-            <a href="#restoration" class="nav-link text-sm tracking-widest uppercase text-odallo-muted">Restoration</a>
-            <a href="#accessories" class="nav-link text-sm tracking-widest uppercase text-odallo-muted">Accessories</a>
-        </div>
+          <div class="hidden lg:flex items-center gap-10">
+              <a href="#custom" class="nav-link text-sm tracking-widest uppercase text-odallo-muted">Our Story</a>
+              <a href="#services" class="nav-link text-sm tracking-widest uppercase text-odallo-muted">Services</a>
+                            <a href="#instruments" class="nav-link text-sm tracking-widest uppercase text-odallo-muted">Custom Instruments</a>
+
+              <a href="#restoration" class="nav-link text-sm tracking-widest uppercase text-odallo-muted">Restoration</a>
+              <a href="#accessories" class="nav-link text-sm tracking-widest uppercase text-odallo-muted">Accessories</a>
+</div>
         <button id="menu-btn" class="lg:hidden text-odallo-cream p-2" aria-label="Menu">
           <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"/></svg>
         </button>
@@ -102,21 +102,27 @@ body{background-color:#0a0a0a;color:#F5EDE0;font-family:'Inter',system-ui,sans-s
       </div>
       <nav class="flex flex-col gap-8 flex-1 justify-center">
         <a href="#custom" class="mobile-link group">
-          <span class="font-serif text-3xl text-odallo-cream group-hover:text-odallo-gold transition-colors duration-300">Custom Builds</span>
-          <div class="h-px w-0 group-hover:w-16 bg-odallo-gold/60 transition-all duration-500 mt-2"></div>
-        </a>
-        <a href="#services" class="mobile-link group">
-          <span class="font-serif text-3xl text-odallo-cream group-hover:text-odallo-gold transition-colors duration-300">Services</span>
-          <div class="h-px w-0 group-hover:w-16 bg-odallo-gold/60 transition-all duration-500 mt-2"></div>
-        </a>
-        <a href="#restoration" class="mobile-link group">
-          <span class="font-serif text-3xl text-odallo-cream group-hover:text-odallo-gold transition-colors duration-300">Restoration</span>
-          <div class="h-px w-0 group-hover:w-16 bg-odallo-gold/60 transition-all duration-500 mt-2"></div>
-        </a>
-        <a href="#accessories" class="mobile-link group">
-          <span class="font-serif text-3xl text-odallo-cream group-hover:text-odallo-gold transition-colors duration-300">Accessories</span>
-          <div class="h-px w-0 group-hover:w-16 bg-odallo-gold/60 transition-all duration-500 mt-2"></div>
-        </a>
+  <span class="font-serif text-2xl text-odallo-cream group-hover:text-odallo-gold transition-colors duration-300">Our Story</span>
+  <div class="h-px w-0 group-hover:w-16 bg-odallo-gold/60 transition-all duration-500 mt-2"></div>
+</a>
+<a href="#services" class="mobile-link group">
+  <span class="font-serif text-2xl text-odallo-cream group-hover:text-odallo-gold transition-colors duration-300">Services</span>
+  <div class="h-px w-0 group-hover:w-16 bg-odallo-gold/60 transition-all duration-500 mt-2"></div>
+</a>
+
+<a href="#instruments" class="mobile-link group">
+  <span class="font-serif text-2xl text-odallo-cream group-hover:text-odallo-gold transition-colors duration-300">Restoration</span>
+  <div class="h-px w-0 group-hover:w-16 bg-odallo-gold/60 transition-all duration-500 mt-2"></div>
+</a>
+
+<a href="#restoration" class="mobile-link group">
+  <span class="font-serif text-2xl text-odallo-cream group-hover:text-odallo-gold transition-colors duration-300">Restoration</span>
+  <div class="h-px w-0 group-hover:w-16 bg-odallo-gold/60 transition-all duration-500 mt-2"></div>
+</a>
+<a href="#accessories" class="mobile-link group">
+  <span class="font-serif text-2xl text-odallo-cream group-hover:text-odallo-gold transition-colors duration-300">Accessories</span>
+  <div class="h-px w-0 group-hover:w-16 bg-odallo-gold/60 transition-all duration-500 mt-2"></div>
+</a>
       </nav>
       <div class="mt-auto pt-10">
         <a href="#contact" class="btn-gold w-full py-4 text-sm tracking-widest uppercase rounded-sm text-center block">Book a Consultation</a>
@@ -137,80 +143,70 @@ body{background-color:#0a0a0a;color:#F5EDE0;font-family:'Inter',system-ui,sans-s
           <div class="deco-line"></div>
           <span class="hero-label text-odallo-gold text-xs tracking-[0.3em] uppercase font-medium">Nairobi • Handcrafted Luxury</span>
         </div>
-        <h1 class="hero-title font-serif text-5xl sm:text-6xl md:text-7xl lg:text-8xl leading-[0.95] mb-6">
-          <span class="text-odallo-cream">Crafted for</span><br>
-          <span class="text-gold-gradient italic">the Extraordinary</span>
-        </h1>
+            <h1 class="hero-title font-serif text-5xl sm:text-6xl md:text-7xl lg:text-8xl leading-[0.95] mb-6">
+              <span class="hero-word text-odallo-cream">Crafted</span>
+              <span class="hero-word text-odallo-cream">for</span><br>
+              <span class="hero-word text-gold-gradient italic">the</span>
+              <span class="hero-word text-gold-gradient italic">Extraordinary</span>
+             </h1>
         <p class="hero-subtitle text-odallo-muted text-lg md:text-xl max-w-xl leading-relaxed mb-10 font-light">
-          Bespoke electric guitars and basses built to your exact vision. Premium tonewoods, masterful fretwork, and the soul of true craftsmanship.
-        </p>
+  Bespoke electric guitars and basses built to your exact vision. Premium tonewoods, 
+  <span id="typewriter"></span><span class="type-cursor">|</span>
+</p>
         <div class="hero-buttons flex flex-wrap gap-4">
           <a href="#custom" class="btn-gold px-8 py-4 text-sm tracking-widest uppercase rounded-sm">Explore Custom Builds</a>
           <a href="#contact" class="btn-outline px-8 py-4 text-sm tracking-widest uppercase rounded-sm">Book a Consultation</a>
         </div>
       </div>
     </div>
-    <div class="absolute bottom-12 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-3 fade-up">
-      <span class="text-[10px] tracking-[3px] text-odallo-muted uppercase">Scroll to begin</span>
-      <div class="w-px h-14 bg-gradient-to-b from-odallo-gold to-transparent"></div>
-    </div>
+        <div class="absolute bottom-12 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-3 fade-up scroll-indicator">
+  <span class="text-[10px] tracking-[3px] text-odallo-muted uppercase">Scroll to begin</span>
+  <div class="scroll-line"></div>
+</div>
   </section>
 
   <!-- CUSTOM / OUR STORY -->
-  <section id="custom" class="py-24 md:py-32 relative bg-odallo-dark">
-    <div class="max-w-7xl mx-auto px-5 sm:px-8">
-      <div class="text-center mb-16 fade-up">
-        <span class="text-odallo-gold text-xs tracking-[0.3em] uppercase mb-4 block">Our Story</span>
-        <h2 class="font-serif text-5xl md:text-6xl text-odallo-cream mb-6">Crafted by Hand,<br> Born in Nairobi</h2>
-        <p class="text-odallo-muted max-w-2xl mx-auto text-lg font-light">The journey of Odallo Guitars and the man behind every instrument — Vincent Odallo.</p>
-      </div>
-      <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center mb-20">
-        <div class="fade-up">
-          <div class="img-zoom rounded-sm overflow-hidden luxury-card">
-            <img src="images/vincent-odallo.jpg" alt="Vincent Odallo" class="w-full h-auto object-cover" />
-          </div>
-        </div>
-        <div class="fade-up space-y-8">
-          <div>
-            <h3 class="font-serif text-3xl text-odallo-cream mb-4">Vincent Odallo</h3>
-            <p class="text-odallo-muted leading-relaxed">In the heart of Nairobi, Kenya, Vincent Odallo turns passion into precision. As the founder and master luthier of Odallo Guitars, he handcrafts every instrument from scratch using premium tonewoods, expert fretwork, and high-quality electronics.</p>
-          </div>
-          <div class="prose prose-invert text-odallo-muted leading-relaxed">
-            <p>Vincent’s journey began with a deep love for music and a desire to create instruments that truly connect with the player. Each guitar is a collaboration between artist and craftsman — built to your exact vision, from neck profile to finish.</p>
-            <p>Beyond building new instruments, Vincent offers professional repairs, restoration, and upgrades, breathing new life into beloved guitars with the same care and attention to detail.</p>
-          </div>
-          <div class="pt-6 border-t border-odallo-gold/20">
-            <a href="#contact" class="btn-gold inline-flex items-center gap-3 px-8 py-4 text-sm tracking-widest uppercase rounded-sm group">
-              Start Your Custom Build <span class="group-hover:translate-x-1 transition-transform">→</span>
-            </a>
-          </div>
+  <!-- CUSTOM / OUR STORY -->
+<section id="custom" class="py-24 md:py-32 relative bg-odallo-dark">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8">
+
+    <!-- Section header -->
+    <div class="text-center mb-16 fade-up">
+      <span class="text-odallo-gold text-xs tracking-[0.3em] uppercase mb-4 block">Our Story</span>
+      <h2 class="font-serif text-5xl md:text-6xl text-odallo-cream mb-6">Crafted by Hand,<br> Born in Nairobi</h2>
+      <p class="text-odallo-muted max-w-2xl mx-auto text-lg font-light">The journey of Odallo Guitars and the man behind every instrument — Vincent Odallo.</p>
+    </div>
+
+    <!-- Vincent photo + text -->
+    <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center mb-20">
+      <div class="fade-up">
+        <div class="img-zoom rounded-sm overflow-hidden luxury-card img-reveal">
+          <img src="images/vincent-odallo.jpg" alt="Vincent Odallo" class="w-full h-auto object-cover" />
         </div>
       </div>
-      <div class="grid md:grid-cols-3 gap-8 fade-up">
-        <div class="luxury-card p-8 text-center group">
-          <div class="mx-auto mb-6 w-36 h-36 rounded-full overflow-hidden border-2 border-odallo-gold/30 group-hover:border-odallo-gold transition-colors">
-            <img src="images/restore3.jpg" alt="Premium Tonewoods" class="w-full h-full object-cover" />
-          </div>
-          <h4 class="font-serif text-xl text-odallo-cream mb-3">Premium Tonewoods</h4>
-          <p class="text-odallo-muted text-sm leading-relaxed">Sourced with care for rich, resonant sound and beautiful grain.</p>
+
+      <div class="fade-up space-y-8">
+        <div>
+          <h3 class="font-serif text-3xl text-odallo-cream mb-4">Vincent Odallo</h3>
+          <p class="text-odallo-muted leading-relaxed">In the heart of Nairobi, Kenya, Vincent Odallo turns passion into precision. As the founder and master luthier of Odallo Guitars, he handcrafts every instrument from scratch using premium tonewoods, expert fretwork, and high-quality electronics.</p>
         </div>
-        <div class="luxury-card p-8 text-center group">
-          <div class="mx-auto mb-6 w-36 h-36 rounded-full overflow-hidden border-2 border-odallo-gold/30 group-hover:border-odallo-gold transition-colors">
-            <img src="images/2.jpg" alt="Handcrafted Precision" class="w-full h-full object-cover" />
-          </div>
-          <h4 class="font-serif text-xl text-odallo-cream mb-3">Handcrafted Precision</h4>
-          <p class="text-odallo-muted text-sm leading-relaxed">Every detail finished by hand in Nairobi with obsessive care.</p>
+        <div class="prose prose-invert text-odallo-muted leading-relaxed">
+          <p>Vincent’s journey began with a deep love for music and a desire to create instruments that truly connect with the player. Each guitar is a collaboration between artist and craftsman — built to your exact vision, from neck profile to finish.</p>
+          <p>Beyond building new instruments, Vincent offers professional repairs, restoration, and upgrades, breathing new life into beloved guitars with the same care and attention to detail.</p>
         </div>
-        <div class="luxury-card p-8 text-center group">
-          <div class="mx-auto mb-6 w-36 h-36 rounded-full overflow-hidden border-2 border-odallo-gold/30 group-hover:border-odallo-gold transition-colors">
-            <img src="images/player-first.jpg" alt="Player First" class="w-full h-full object-cover" />
-          </div>
-          <h4 class="font-serif text-xl text-odallo-cream mb-3">Player First</h4>
-          <p class="text-odallo-muted text-sm leading-relaxed">Instruments built to feel like a natural extension of you.</p>
+        <div class="pt-6 border-t border-odallo-gold/20">
+          <a href="#contact" class="btn-gold inline-flex items-center gap-3 px-8 py-4 text-sm tracking-widest uppercase rounded-sm group">
+            Start Your Custom Build <span class="group-hover:translate-x-1 transition-transform">→</span>
+          </a>
         </div>
       </div>
     </div>
-  </section>
+
+    <!-- Three feature cards -->
+    
+
+  </div>
+</section>
 
   <div class="section-divider max-w-4xl mx-auto"></div>
 
@@ -310,57 +306,230 @@ body{background-color:#0a0a0a;color:#F5EDE0;font-family:'Inter',system-ui,sans-s
     </div>
   </section>
 
-  <!-- RESTORATION -->
-  <section id="restoration" class="py-24 md:py-32 bg-odallo-dark">
-    <div class="max-w-7xl mx-auto px-5 sm:px-8">
-      <div class="text-center mb-16 fade-up">
-        <span class="text-odallo-gold text-xs tracking-[0.3em] uppercase mb-4 block">Bring It Back to Life</span>
-        <h2 class="font-serif text-4xl md:text-5xl lg:text-6xl text-odallo-cream mb-5">Restoration & Customization</h2>
-        <div class="section-divider max-w-xs mx-auto"></div>
+
+  <!-- ==================== CUSTOM INSTRUMENTS ==================== -->
+<section id="instruments" class="py-24 md:py-32 bg-odallo-black">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8">
+    
+    <!-- Section Header -->
+    <div class="text-center mb-16 fade-up">
+      <span class="text-odallo-gold text-xs tracking-[0.3em] uppercase mb-4 block">Bespoke Creations</span>
+      <h2 class="font-serif text-4xl md:text-5xl lg:text-6xl text-odallo-cream mb-5">Custom Instruments</h2>
+      <div class="section-divider max-w-xs mx-auto mb-6"></div>
+      <p class="text-odallo-muted max-w-2xl mx-auto text-lg font-light">
+        Every instrument is born from conversation. Tell us your vision — we build it by hand in Nairobi.
+      </p>
+    </div>
+
+    <!-- Electric Guitar - Featured -->
+      <div class="luxury-card rounded-sm overflow-hidden fade-up mb-10">
+  <div class="grid lg:grid-cols-2">
+    
+    <!-- Image Side (reduced height) -->
+    <div class="img-zoom h-64 md:h-72 lg:h-auto min-h-[260px] max-h-[320px]">
+      <img src="images/electric.jpg" alt="Custom Electric Guitar" class="w-full h-full object-cover" />
+    </div>
+
+    <!-- Text Side -->
+    <div class="p-8 md:p-12 flex flex-col justify-center">
+      <span class="text-odallo-gold text-xs tracking-[0.25em] uppercase mb-3">Signature Build</span>
+      <h3 class="font-serif text-3xl md:text-4xl text-odallo-cream mb-4">Custom Electric Guitar</h3>
+      <p class="text-odallo-muted font-light leading-relaxed mb-6">
+        Built to your preferred specifications — pickups, hardware, neck profile, and finish. From the first sketch to the final polish, every detail is crafted for you.
+      </p>
+      <div class="flex flex-wrap items-center gap-6">
+        <span class="price-tag text-2xl text-odallo-gold">Starting from KSh 35,000</span>
+        <a href="#contact" class="btn-gold px-7 py-3 text-xs tracking-widest uppercase rounded-sm">Commission Yours</a>
       </div>
-      <div class="grid md:grid-cols-2 gap-8 lg:gap-12">
-        <div class="luxury-card rounded-sm overflow-hidden fade-up">
-          <div class="img-zoom h-64">
-            <img src="images/2.jpg" alt="Guitar Restoration" class="w-full h-full object-cover" />
-          </div>
-          <div class="p-8">
-            <h3 class="font-serif text-2xl text-odallo-cream mb-6">Guitar Restoration</h3>
-            <div class="space-y-5">
-              <div class="flex justify-between items-center">
-                <div>
-                  <p class="text-odallo-cream">Headstock Repair</p>
-                  <p class="text-xs text-odallo-muted mt-0.5">Structural integrity restored</p>
-                </div>
-                <span class="price-tag text-odallo-gold">KSh 2,500 – 4,000</span>
-              </div>
-              <div class="section-divider"></div>
-              <div class="flex justify-between items-center">
-                <div>
-                  <p class="text-odallo-cream">Structural Restoration</p>
-                  <p class="text-xs text-odallo-muted mt-0.5">Full assessment required</p>
-                </div>
-                <span class="price-tag text-odallo-gold text-sm">Quotation after inspection</span>
-              </div>
-            </div>
+    </div>
+
+  </div>
+</div>
+    <!-- Bass Guitars Grid -->
+    <div class="grid md:grid-cols-3 gap-6 mb-10 fade-up">
+      
+      <!-- 4-String Bass -->
+      <div class="luxury-card rounded-sm overflow-hidden group">
+        <div class="img-zoom h-52">
+          <img src="images/2.jpg" alt="Custom 4-String Bass" class="w-full h-full object-cover" />
+        </div>
+        <div class="p-6">
+          <h4 class="font-serif text-xl text-odallo-cream mb-1">Custom Bass Guitar</h4>
+          <p class="text-odallo-gold text-xs tracking-widest uppercase mb-3">4-String</p>
+          <p class="text-odallo-muted text-sm font-light mb-5">Tight low-end, balanced response, built to your feel and tone preferences.</p>
+          <div class="flex items-center justify-between">
+            <span class="price-tag text-lg text-odallo-gold">From KSh 35,000</span>
+            <a href="#contact" class="text-odallo-gold text-xs tracking-wider uppercase hover:text-odallo-cream transition-colors">Enquire →</a>
           </div>
         </div>
-        <div class="luxury-card rounded-sm overflow-hidden fade-up">
-          <div class="img-zoom h-64">
-            <img src="images/restore3.jpg" alt="Custom Guitar Refinishing" class="w-full h-full object-cover" />
+      </div>
+
+      <!-- 5-String Bass -->
+      <div class="luxury-card rounded-sm overflow-hidden group">
+        <div class="img-zoom h-52">
+          <img src="images/restore3.jpg" alt="Custom 5-String Bass" class="w-full h-full object-cover" />
+        </div>
+        <div class="p-6">
+          <h4 class="font-serif text-xl text-odallo-cream mb-1">Custom Bass Guitar</h4>
+          <p class="text-odallo-gold text-xs tracking-widest uppercase mb-3">5-String</p>
+          <p class="text-odallo-muted text-sm font-light mb-5">Extended range with clarity and power. Perfect for modern low-tuned styles.</p>
+          <div class="flex items-center justify-between">
+            <span class="price-tag text-lg text-odallo-gold">From KSh 45,000</span>
+            <a href="#contact" class="text-odallo-gold text-xs tracking-wider uppercase hover:text-odallo-cream transition-colors">Enquire →</a>
           </div>
-          <div class="p-8">
-            <h3 class="font-serif text-2xl text-odallo-cream mb-6">Refinishing & Customization</h3>
-            <div class="space-y-4">
-              <div class="flex justify-between items-center"><p class="text-odallo-cream">Full Body Refinish</p><span class="price-tag text-odallo-gold">KSh 6,000 – 10,000</span></div>
-              <div class="flex justify-between items-center"><p class="text-odallo-cream">Touch-up & Paint Repair</p><span class="price-tag text-odallo-gold">From KSh 2,000</span></div>
-              <div class="flex justify-between items-center"><p class="text-odallo-cream">Custom Paint Designs</p><span class="price-tag text-odallo-gold">From KSh 3,000</span></div>
-              <div class="flex justify-between items-center"><p class="text-odallo-cream">Buffing & Polish</p><span class="price-tag text-odallo-gold">KSh 1,500 – 3,000</span></div>
-            </div>
+        </div>
+      </div>
+
+      <!-- 6-String Bass -->
+      <div class="luxury-card rounded-sm overflow-hidden group">
+        <div class="img-zoom h-52">
+          <img src="images/vincent-odallo.jpg" alt="Custom 6-String Bass" class="w-full h-full object-cover" />
+        </div>
+        <div class="p-6">
+          <h4 class="font-serif text-xl text-odallo-cream mb-1">Custom Bass Guitar</h4>
+          <p class="text-odallo-gold text-xs tracking-widest uppercase mb-3">6-String</p>
+          <p class="text-odallo-muted text-sm font-light mb-5">Full extended range for the most demanding players and complex arrangements.</p>
+          <div class="flex items-center justify-between">
+            <span class="price-tag text-lg text-odallo-gold">From KSh 65,000</span>
+            <a href="#contact" class="text-odallo-gold text-xs tracking-wider uppercase hover:text-odallo-cream transition-colors">Enquire →</a>
           </div>
         </div>
       </div>
     </div>
-  </section>
+
+    <!-- Acoustic Guitar -->
+      <!-- Acoustic Guitar -->
+<div class="luxury-card rounded-sm overflow-hidden fade-up">
+  <div class="grid lg:grid-cols-2">
+    
+    <!-- Text Side -->
+    <div class="order-2 lg:order-1 p-8 md:p-12 flex flex-col justify-center">
+      <span class="text-odallo-gold text-xs tracking-[0.25em] uppercase mb-3">Handcrafted Resonance</span>
+      <h3 class="font-serif text-3xl md:text-4xl text-odallo-cream mb-4">Custom Acoustic Guitar</h3>
+      <p class="text-odallo-muted font-light leading-relaxed mb-6">
+        Warm, responsive, and built for the player who values pure acoustic tone. Premium tonewoods, careful bracing, and a finish that feels as good as it sounds.
+      </p>
+      <div class="flex flex-wrap items-center gap-6">
+        <span class="price-tag text-2xl text-odallo-gold">Starting from KSh 18,000</span>
+        <a href="#contact" class="btn-outline px-7 py-3 text-xs tracking-widest uppercase rounded-sm">Commission Yours</a>
+      </div>
+    </div>
+
+    <!-- Image Carousel Side -->
+    <div class="order-1 lg:order-2 relative group">
+      <div id="acoustic-carousel" class="relative w-full h-72 md:h-80 lg:h-full min-h-[290px] max-h-[340px] overflow-hidden">
+        
+        <!-- Image 1 -->
+        <img src="images/acoustic.webp" 
+             alt="Custom Acoustic Guitar 1" 
+             class="acoustic-slide absolute inset-0 w-full h-full object-cover opacity-100 transition-opacity duration-700 ease-in-out">
+        
+        <!-- Image 2 (change this path to your second image) -->
+        <img src="images/acoustic2.webp" 
+             alt="Custom Acoustic Guitar 2" 
+             class="acoustic-slide absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-700 ease-in-out">
+      </div>
+
+      <!-- Dots -->
+      <div class="absolute bottom-4 left-0 right-0 flex justify-center gap-2 z-10">
+        <button class="acoustic-dot w-8 h-1 rounded-full bg-odallo-gold transition-all duration-300" data-index="0"></button>
+        <button class="acoustic-dot w-3 h-1 rounded-full bg-odallo-gold/40 transition-all duration-300" data-index="1"></button>
+      </div>
+
+      <!-- Optional arrows (appear on hover) -->
+      <button id="acoustic-prev" class="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full border border-odallo-gold/40 text-odallo-gold bg-black/50 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center hover:border-odallo-gold hover:text-odallo-cream">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7"/></svg>
+      </button>
+      <button id="acoustic-next" class="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full border border-odallo-gold/40 text-odallo-gold bg-black/50 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center hover:border-odallo-gold hover:text-odallo-cream">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+
+  </div>
+</div>   
+
+  </div>
+</section>
+
+  <!-- RESTORATION -->
+  <!-- RESTORATION -->
+<section id="restoration" class="py-24 md:py-32 bg-odallo-dark">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8">
+
+    <div class="text-center mb-16 fade-up">
+      <span class="text-odallo-gold text-xs tracking-[0.3em] uppercase mb-4 block">Bring It Back to Life</span>
+      <h2 class="font-serif text-4xl md:text-5xl lg:text-6xl text-odallo-cream mb-5">Restoration & Customization</h2>
+      <div class="section-divider max-w-xs mx-auto"></div>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-8 lg:gap-12">
+
+      <!-- Guitar Restoration Card -->
+      <div class="luxury-card rounded-sm overflow-hidden fade-up group">
+        <div class="relative h-64 md:h-72 overflow-hidden">
+          <div id="restore-card-carousel" class="carousel-track absolute inset-0"></div>
+          <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none z-10"></div>
+          <div id="restore-card-dots" class="absolute bottom-4 left-0 right-0 flex justify-center gap-1.5 z-20"></div>
+
+          <button id="restore-card-prev" class="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full border border-odallo-gold/30 text-odallo-gold bg-black/50 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-20" aria-label="Previous">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7"/></svg>
+          </button>
+          <button id="restore-card-next" class="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full border border-odallo-gold/30 text-odallo-gold bg-black/50 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-20" aria-label="Next">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+
+        <div class="p-8">
+          <h3 class="font-serif text-2xl text-odallo-cream mb-6">Guitar Restoration</h3>
+          <div class="space-y-5">
+            <div class="flex justify-between items-center">
+              <div>
+                <p class="text-odallo-cream">Headstock Repair</p>
+                <p class="text-xs text-odallo-muted mt-0.5">Structural integrity restored</p>
+              </div>
+              <span class="price-tag text-odallo-gold">KSh 2,500 – 4,000</span>
+            </div>
+            <div class="section-divider"></div>
+            <div class="flex justify-between items-center">
+              <div>
+                <p class="text-odallo-cream">Structural Restoration</p>
+                <p class="text-xs text-odallo-muted mt-0.5">Full assessment required</p>
+              </div>
+              <span class="price-tag text-odallo-gold text-sm">Quotation after inspection</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Refinishing & Customization Card -->
+      <div class="luxury-card rounded-sm overflow-hidden fade-up group">
+        <div class="relative h-64 md:h-72 overflow-hidden">
+          <div id="refinish-card-carousel" class="carousel-track absolute inset-0"></div>
+          <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none z-10"></div>
+          <div id="refinish-card-dots" class="absolute bottom-4 left-0 right-0 flex justify-center gap-1.5 z-20"></div>
+
+          <button id="refinish-card-prev" class="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full border border-odallo-gold/30 text-odallo-gold bg-black/50 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-20" aria-label="Previous">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7"/></svg>
+          </button>
+          <button id="refinish-card-next" class="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full border border-odallo-gold/30 text-odallo-gold bg-black/50 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-20" aria-label="Next">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+
+        <div class="p-8">
+          <h3 class="font-serif text-2xl text-odallo-cream mb-6">Refinishing & Customization</h3>
+          <div class="space-y-4">
+            <div class="flex justify-between items-center"><p class="text-odallo-cream">Full Body Refinish</p><span class="price-tag text-odallo-gold">KSh 6,000 – 10,000</span></div>
+            <div class="flex justify-between items-center"><p class="text-odallo-cream">Touch-up & Paint Repair</p><span class="price-tag text-odallo-gold">From KSh 2,000</span></div>
+            <div class="flex justify-between items-center"><p class="text-odallo-cream">Custom Paint Designs</p><span class="price-tag text-odallo-gold">From KSh 3,000</span></div>
+            <div class="flex justify-between items-center"><p class="text-odallo-cream">Buffing & Polish</p><span class="price-tag text-odallo-gold">KSh 1,500 – 3,000</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
 
   <!-- ACCESSORIES -->
   <section id="accessories" class="py-24 md:py-32 bg-odallo-dark">
@@ -400,8 +569,9 @@ body{background-color:#0a0a0a;color:#F5EDE0;font-family:'Inter',system-ui,sans-s
             </div>
           </div>
         </div>
-          <div class="lg:col-span-7 fade-up">
-  <div class="relative img-zoom rounded-sm overflow-hidden luxury-card h-[480px] md:h-[560px] group">
+          <div class="lg:col-span-7 fade-up fade-up lg:mt-12">
+  
+    <div class="relative img-zoom rounded-sm overflow-hidden luxury-card h-[380px] md:h-[440px] lg:h-[480px] group">
     <!-- Accessories Carousel -->
     <div id="accessories-carousel" class="carousel-track relative w-full h-full overflow-hidden"></div>
     <div id="accessories-dots" class="absolute bottom-24 left-0 right-0 flex justify-center gap-2 z-20"></div>
