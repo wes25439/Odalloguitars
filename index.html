@@ -76,11 +76,10 @@ body{background-color:#0a0a0a;color:#F5EDE0;font-family:'Inter',system-ui,sans-s
           <img src="images/odallo-logo.jpg" alt="Odallo Guitars" class="h-12 md:h-14 w-auto object-contain transition-transform duration-500 group-hover:scale-105" />
         </a>
         <div class="hidden lg:flex items-center gap-10">
-          <a href="#custom" class="text-sm tracking-widest uppercase text-odallo-muted hover:text-odallo-gold transition-colors duration-300">Custom Builds</a>
-          <a href="#services" class="text-sm tracking-widest uppercase text-odallo-muted hover:text-odallo-gold transition-colors duration-300">Services</a>
-          <a href="#restoration" class="text-sm tracking-widest uppercase text-odallo-muted hover:text-odallo-gold transition-colors duration-300">Restoration</a>
-          <a href="#accessories" class="text-sm tracking-widest uppercase text-odallo-muted hover:text-odallo-gold transition-colors duration-300">Accessories</a>
-          <a href="#contact" class="btn-gold px-6 py-2.5 text-xs tracking-widest uppercase rounded-sm">Book Now</a>
+           <a href="#custom" class="nav-link text-sm tracking-widest uppercase text-odallo-muted">Custom Builds</a>
+            <a href="#services" class="nav-link text-sm tracking-widest uppercase text-odallo-muted">Services</a>
+            <a href="#restoration" class="nav-link text-sm tracking-widest uppercase text-odallo-muted">Restoration</a>
+            <a href="#accessories" class="nav-link text-sm tracking-widest uppercase text-odallo-muted">Accessories</a>
         </div>
         <button id="menu-btn" class="lg:hidden text-odallo-cream p-2" aria-label="Menu">
           <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"/></svg>
@@ -223,16 +222,33 @@ body{background-color:#0a0a0a;color:#F5EDE0;font-family:'Inter',system-ui,sans-s
           <span class="text-odallo-gold text-xs tracking-[0.3em] uppercase mb-4 block">Expert Care</span>
           <h2 class="font-serif text-4xl md:text-5xl text-odallo-cream mb-6">Guitar Repair & Maintenance</h2>
           <p class="text-odallo-muted text-lg font-light leading-relaxed mb-8">Your instrument deserves the same level of care that went into its creation. From routine setups to complex electronics, every service is performed with precision and respect for the instrument.</p>
-          <div class="img-zoom rounded-sm overflow-hidden luxury-card relative group">
-            <div id="restore-carousel" class="carousel-track relative w-full h-72 md:h-96 overflow-hidden"></div>
-            <div id="carousel-dots" class="absolute bottom-4 left-0 right-0 flex justify-center gap-2 z-10"></div>
-            <button id="carousel-prev" class="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full border border-odallo-gold/40 text-odallo-gold bg-black/60 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7"/></svg>
-            </button>
-            <button id="carousel-next" class="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full border border-odallo-gold/40 text-odallo-gold bg-black/60 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7"/></svg>
-            </button>
-          </div>
+              <!-- Services Carousel – Editorial / Workshop style -->
+<div class="relative group">
+  <!-- Outer gold frame -->
+  <div class="absolute -inset-px rounded-sm border border-odallo-gold/25 pointer-events-none z-30"></div>
+  <div class="absolute inset-1 rounded-sm border border-odallo-gold/10 pointer-events-none z-30"></div>
+
+  <div class="img-zoom rounded-sm overflow-hidden luxury-card relative">
+    <div id="restore-carousel" class="carousel-track relative w-full h-80 md:h-[26rem] overflow-hidden"></div>
+
+    <!-- Soft vignette -->
+    <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20 pointer-events-none z-10"></div>
+
+    <!-- Bottom bar with dots + counter -->
+    <div class="absolute bottom-0 left-0 right-0 z-20 px-5 pb-5 flex items-center justify-between">
+      <div id="carousel-dots" class="flex gap-1.5"></div>
+      <span id="carousel-counter" class="text-[11px] tracking-[0.2em] text-odallo-gold/80 font-light uppercase">01 / 06</span>
+    </div>
+
+    <!-- Minimal side arrows -->
+    <button id="carousel-prev" class="absolute left-0 top-0 bottom-0 w-14 flex items-center justify-center text-odallo-gold/50 hover:text-odallo-gold hover:bg-black/30 transition-all duration-400 z-20" aria-label="Previous">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" d="M15 19l-7-7 7-7"/></svg>
+    </button>
+    <button id="carousel-next" class="absolute right-0 top-0 bottom-0 w-14 flex items-center justify-center text-odallo-gold/50 hover:text-odallo-gold hover:bg-black/30 transition-all duration-400 z-20" aria-label="Next">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" d="M9 5l7 7-7 7"/></svg>
+    </button>
+  </div>
+</div>
         </div>
         <div class="fade-up space-y-0">
           <div class="service-item py-6">
@@ -384,17 +400,26 @@ body{background-color:#0a0a0a;color:#F5EDE0;font-family:'Inter',system-ui,sans-s
             </div>
           </div>
         </div>
-        <div class="lg:col-span-7 fade-up">
-          <div class="relative img-zoom rounded-sm overflow-hidden luxury-card h-[480px] md:h-[560px]">
-            <img src="images/accessories.jpg" alt="Premium Guitar Accessories" class="w-full h-full object-cover" />
-            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
-            <div class="absolute bottom-0 left-0 right-0 p-8 md:p-10">
-              <p class="text-odallo-gold text-xs tracking-[0.3em] uppercase mb-2">Hand-selected</p>
-              <h3 class="font-serif text-2xl md:text-3xl text-odallo-cream mb-3">Only the best for your instrument</h3>
-              <p class="text-odallo-muted text-sm font-light max-w-md">Every accessory is chosen for quality, durability and the way it feels in your hands.</p>
-            </div>
-          </div>
-        </div>
+          <div class="lg:col-span-7 fade-up">
+  <div class="relative img-zoom rounded-sm overflow-hidden luxury-card h-[480px] md:h-[560px] group">
+    <!-- Accessories Carousel -->
+    <div id="accessories-carousel" class="carousel-track relative w-full h-full overflow-hidden"></div>
+    <div id="accessories-dots" class="absolute bottom-24 left-0 right-0 flex justify-center gap-2 z-20"></div>
+    <button id="accessories-prev" class="absolute left-3 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full border border-odallo-gold/40 text-odallo-gold bg-black/60 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-20" aria-label="Previous">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7"/></svg>
+    </button>
+    <button id="accessories-next" class="absolute right-3 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full border border-odallo-gold/40 text-odallo-gold bg-black/60 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-20" aria-label="Next">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7"/></svg>
+    </button>
+    <!-- Overlay text -->
+    <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent pointer-events-none z-10"></div>
+    <div class="absolute bottom-0 left-0 right-0 p-8 md:p-10 z-10 pointer-events-none">
+      <p class="text-odallo-gold text-xs tracking-[0.3em] uppercase mb-2">Hand-selected</p>
+      <h3 class="font-serif text-2xl md:text-3xl text-odallo-cream mb-3">Only the best for your instrument</h3>
+      <p class="text-odallo-muted text-sm font-light max-w-md">Every accessory is chosen for quality, durability and the way it feels in your hands.</p>
+    </div>
+  </div>
+</div>
       </div>
     </div>
   </section>

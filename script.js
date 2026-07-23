@@ -9,8 +9,6 @@ window.addEventListener('scroll', () => {
 });
 
 // Mobile menu
-// Mobile menu
-// Mobile menu
 const menuBtn = document.getElementById('menu-btn');
 const closeBtn = document.getElementById('close-menu');
 const mobileMenu = document.getElementById('mobile-menu');
@@ -18,28 +16,27 @@ const mobileLinks = document.querySelectorAll('.mobile-link');
 
 function openMobileMenu() {
   mobileMenu.classList.add('open');
-  document.body.style.overflow = 'hidden'; // Prevents page from scrolling behind the menu
+  document.body.style.overflow = 'hidden';
 }
 
 function closeMobileMenu() {
   mobileMenu.classList.remove('open');
-  document.body.style.overflow = ''; // Restores scrolling
+  document.body.style.overflow = '';
 }
 
 menuBtn.addEventListener('click', openMobileMenu);
 closeBtn.addEventListener('click', closeMobileMenu);
 
-// Close when clicking any navigation link
 mobileLinks.forEach(link => {
   link.addEventListener('click', closeMobileMenu);
 });
 
-// Close when user scrolls
 window.addEventListener('scroll', () => {
   if (mobileMenu.classList.contains('open')) {
     closeMobileMenu();
   }
 }, { passive: true });
+
 // Fade-up on scroll
 const fadeEls = document.querySelectorAll('.fade-up');
 const observer = new IntersectionObserver((entries) => {
@@ -78,14 +75,9 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 });
 
 
-
-
 /* ======================================================
-   PREMIUM CAROUSEL for Odallo Guitars
-   Type your image paths directly in the array below.
+   SERVICES CAROUSEL (Editorial / Workshop style)
    ====================================================== */
-
-// 👇 TYPE YOUR IMAGE FILE NAMES HERE (one per line) 👇
 const IMAGE_LIST = [
     "images/estore2.jpg",
     "images/fix1.jpg",
@@ -94,29 +86,26 @@ const IMAGE_LIST = [
     "images/vincent-odallo.jpg",
     "images/showroom.jpg"
 ];
-// 👆 add or remove lines to match your images
 
 (function() {
     const track = document.getElementById('restore-carousel');
     const dotsContainer = document.getElementById('carousel-dots');
     const prevBtn = document.getElementById('carousel-prev');
     const nextBtn = document.getElementById('carousel-next');
+    const counter = document.getElementById('carousel-counter');
 
-    if (!track || !dotsContainer) return; // safety check
+    if (!track || !dotsContainer) return;
 
     let currentIndex = 0;
     let autoPlayInterval;
 
-    // Build images and dots
     IMAGE_LIST.forEach((src, index) => {
-        // Create image
         const img = document.createElement('img');
         img.src = src;
         img.alt = `Restoration ${index + 1}`;
         img.className = index === 0 ? 'active' : '';
         track.appendChild(img);
 
-        // Create dot
         const dot = document.createElement('span');
         dot.className = `carousel-dot ${index === 0 ? 'active' : ''}`;
         dot.addEventListener('click', () => goToSlide(index));
@@ -126,6 +115,99 @@ const IMAGE_LIST = [
     const images = track.querySelectorAll('img');
     const dots = dotsContainer.querySelectorAll('.carousel-dot');
     const total = IMAGE_LIST.length;
+
+    function updateCounter(index) {
+        if (counter) {
+            const current = String(index + 1).padStart(2, '0');
+            const totalStr = String(total).padStart(2, '0');
+            counter.textContent = `${current} / ${totalStr}`;
+        }
+    }
+
+    function goToSlide(index) {
+        if (index < 0) index = total - 1;
+        if (index >= total) index = 0;
+
+        images[currentIndex].classList.remove('active');
+        dots[currentIndex].classList.remove('active');
+        images[index].classList.add('active');
+        dots[index].classList.add('active');
+        currentIndex = index;
+        updateCounter(index);
+    }
+
+    function nextSlide() { goToSlide(currentIndex + 1); }
+    function prevSlide() { goToSlide(currentIndex - 1); }
+
+    function startAutoPlay() {
+        stopAutoPlay();
+        autoPlayInterval = setInterval(nextSlide, 4200);
+    }
+    function stopAutoPlay() {
+        clearInterval(autoPlayInterval);
+    }
+
+    if (nextBtn) nextBtn.addEventListener('click', () => { nextSlide(); resetTimer(); });
+    if (prevBtn) prevBtn.addEventListener('click', () => { prevSlide(); resetTimer(); });
+
+    const container = track.closest('.group') || track.parentElement;
+    container.addEventListener('mouseenter', stopAutoPlay);
+    container.addEventListener('mouseleave', startAutoPlay);
+
+    container.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') { prevSlide(); resetTimer(); }
+        if (e.key === 'ArrowRight') { nextSlide(); resetTimer(); }
+    });
+
+    function resetTimer() {
+        stopAutoPlay();
+        startAutoPlay();
+    }
+
+    updateCounter(0);
+    startAutoPlay();
+})();
+
+document.querySelector('#services .fade-up')?.classList.add('visible');
+
+
+/* ======================================================
+   ACCESSORIES PREMIUM CAROUSEL
+   ====================================================== */
+const ACCESSORIES_IMAGES = [
+    "images/accessories.jpg",
+    "images/estore2.jpg",
+    "images/2.jpg",
+    "images/restore3.jpg"
+];
+
+(function() {
+    const track = document.getElementById('accessories-carousel');
+    const dotsContainer = document.getElementById('accessories-dots');
+    const prevBtn = document.getElementById('accessories-prev');
+    const nextBtn = document.getElementById('accessories-next');
+
+    if (!track || !dotsContainer) return;
+
+    let currentIndex = 0;
+    let autoPlayInterval;
+
+    ACCESSORIES_IMAGES.forEach((src, index) => {
+        const img = document.createElement('img');
+        img.src = src;
+        img.alt = `Accessories ${index + 1}`;
+        img.className = index === 0 ? 'active' : '';
+        track.appendChild(img);
+
+        const dot = document.createElement('span');
+        dot.className = `carousel-dot ${index === 0 ? 'active' : ''}`;
+        dot.addEventListener('click', () => goToSlide(index));
+        dotsContainer.appendChild(dot);
+    });
+
+    const images = track.querySelectorAll('img');
+    const dots = dotsContainer.querySelectorAll('.carousel-dot');
+    const total = ACCESSORIES_IMAGES.length;
 
     function goToSlide(index) {
         if (index < 0) index = total - 1;
@@ -142,23 +224,20 @@ const IMAGE_LIST = [
     function prevSlide() { goToSlide(currentIndex - 1); }
 
     function startAutoPlay() {
-        stopAutoPlay(); // avoid double intervals
-        autoPlayInterval = setInterval(nextSlide, 4000);
+        stopAutoPlay();
+        autoPlayInterval = setInterval(nextSlide, 4500);
     }
     function stopAutoPlay() {
         clearInterval(autoPlayInterval);
     }
 
-    // Button events
-    if (nextBtn) nextBtn.addEventListener('click', () => { prevSlide(); resetTimer(); });
-    if (prevBtn) prevBtn.addEventListener('click', () => { nextSlide(); resetTimer(); });
+    if (nextBtn) nextBtn.addEventListener('click', () => { nextSlide(); resetTimer(); });
+    if (prevBtn) prevBtn.addEventListener('click', () => { prevSlide(); resetTimer(); });
 
-    // Hover pause
     const container = track.parentElement;
     container.addEventListener('mouseenter', stopAutoPlay);
     container.addEventListener('mouseleave', startAutoPlay);
 
-    // Keyboard navigation (accessibility)
     container.addEventListener('keydown', (e) => {
         if (e.key === 'ArrowLeft') { prevSlide(); resetTimer(); }
         if (e.key === 'ArrowRight') { nextSlide(); resetTimer(); }
@@ -169,28 +248,21 @@ const IMAGE_LIST = [
         startAutoPlay();
     }
 
-    // Start the show
     startAutoPlay();
 })();
 
-document.querySelector('#services .fade-up').classList.add('visible');
-
 /* ======================================================
-   HERO PARALLAX – Mobile Tilt Only
+   HERO PARALLAX – Mobile Tilt + Touch Fallback
    ====================================================== */
 (function () {
   const heroImg = document.getElementById('hero-img');
   const heroSection = document.getElementById('home');
   if (!heroImg || !heroSection) return;
 
-  // Only run the effect on mobile / touch devices
   const isMobile = window.matchMedia('(max-width: 768px)').matches || 
                    ('ontouchstart' in window);
 
-  if (!isMobile) {
-    // On desktop → just keep a very subtle Ken-Burns (or remove completely)
-    return; // ← this removes all movement on desktop
-  }
+  if (!isMobile) return; // desktop keeps the CSS Ken-Burns only
 
   let isActive = false;
   let currentX = 0;
@@ -198,10 +270,11 @@ document.querySelector('#services .fade-up').classList.add('visible');
   let targetX = 0;
   let targetY = 0;
 
-  const baseScale = 1.40;     // larger scale so edges never show
-  const maxOffset = 22;
-  const ease = 0.09;
+  const baseScale = 1.25;
+  const maxOffset = 28;
+  const ease = 0.1;
 
+  // Always run the smooth animation loop
   function animate() {
     currentX += (targetX - currentX) * ease;
     currentY += (targetY - currentY) * ease;
@@ -213,26 +286,26 @@ document.querySelector('#services .fade-up').classList.add('visible');
   function activate() {
     if (!isActive) {
       isActive = true;
-      heroImg.classList.add('parallax-active');
+      heroImg.classList.add('parallax-active'); // kills the CSS Ken-Burns
     }
   }
 
-  // Device tilt only
+  // ---------- 1. Device Orientation (real tilt) ----------
   function handleOrientation(e) {
     if (e.gamma === null || e.beta === null) return;
     activate();
 
-    let x = Math.max(-25, Math.min(25, e.gamma)) / 25;
-    let y = Math.max(-25, Math.min(25, e.beta - 45)) / 25;
+    let x = Math.max(-30, Math.min(30, e.gamma)) / 30;
+    let y = Math.max(-30, Math.min(30, e.beta - 45)) / 30;
 
     targetX = x * maxOffset * 1.5;
-    targetY = y * maxOffset * 1.1;
+    targetY = y * maxOffset * 0.9;
   }
 
-  // iOS permission
   function requestOrientationPermission() {
     if (typeof DeviceOrientationEvent !== 'undefined' &&
         typeof DeviceOrientationEvent.requestPermission === 'function') {
+      // iOS – needs a user gesture
       const ask = () => {
         DeviceOrientationEvent.requestPermission()
           .then(state => {
@@ -247,11 +320,42 @@ document.querySelector('#services .fade-up').classList.add('visible');
       heroSection.addEventListener('click', ask, { once: true });
       heroSection.addEventListener('touchstart', ask, { once: true });
     } else if (window.DeviceOrientationEvent) {
+      // Android & others
       window.addEventListener('deviceorientation', handleOrientation, true);
     }
   }
 
   requestOrientationPermission();
+
+  // ---------- 2. Touch / Finger drag fallback ----------
+  // This makes the effect work even when orientation is blocked
+  let isTouching = false;
+
+  heroSection.addEventListener('touchstart', (e) => {
+    isTouching = true;
+    activate();
+  }, { passive: true });
+
+  heroSection.addEventListener('touchmove', (e) => {
+    if (!isTouching) return;
+    const touch = e.touches[0];
+    const rect = heroSection.getBoundingClientRect();
+
+    // Map finger position to -1 → 1
+    const x = ((touch.clientX - rect.left) / rect.width - 0.5) * 2;
+    const y = ((touch.clientY - rect.top) / rect.height - 0.5) * 2;
+
+    targetX = x * maxOffset * 1.3;
+    targetY = y * maxOffset * 0.8;
+  }, { passive: true });
+
+  heroSection.addEventListener('touchend', () => {
+    isTouching = false;
+    // gently return to center
+    targetX = 0;
+    targetY = 0;
+  }, { passive: true });
+
 })();
 
 /* ======================================================
@@ -264,7 +368,6 @@ document.querySelector('#services .fade-up').classList.add('visible');
 
   if (!loader) return;
 
-  // Start animation shortly after page begins loading
   window.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
       logo.classList.add('show');
@@ -272,14 +375,9 @@ document.querySelector('#services .fade-up').classList.add('visible');
     }, 100);
   });
 
-  // Hide loader when everything is ready
   window.addEventListener('load', () => {
     setTimeout(() => {
       loader.classList.add('hidden');
-    }, 1800); // waits for the line animation to finish
+    }, 1800);
   });
 })();
-
-
-
-
