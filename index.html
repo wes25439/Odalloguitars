@@ -81,9 +81,13 @@ body{background-color:#0a0a0a;color:#F5EDE0;font-family:'Inter',system-ui,sans-s
               <a href="#restoration" class="nav-link text-sm tracking-widest uppercase text-odallo-muted">Restoration</a>
               <a href="#accessories" class="nav-link text-sm tracking-widest uppercase text-odallo-muted">Accessories</a>
 </div>
-        <button id="menu-btn" class="lg:hidden text-odallo-cream p-2" aria-label="Menu">
-          <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"/></svg>
-        </button>
+        <button id="menu-btn" class="lg:hidden text-odallo-cream p-2 relative w-10 h-10 flex items-center justify-center" aria-label="Menu">
+  <div class="hamburger flex flex-col gap-[5px] items-end">
+    <span class="ham-line ham-line-1 w-6 h-[1.5px] bg-odallo-cream rounded-full origin-right"></span>
+    <span class="ham-line ham-line-2 w-5 h-[1.5px] bg-odallo-cream rounded-full origin-right"></span>
+    <span class="ham-line ham-line-3 w-4 h-[1.5px] bg-odallo-cream rounded-full origin-right"></span>
+  </div>
+</button>
       </div>
     </div>
   </nav>
@@ -111,7 +115,7 @@ body{background-color:#0a0a0a;color:#F5EDE0;font-family:'Inter',system-ui,sans-s
 </a>
 
 <a href="#instruments" class="mobile-link group">
-  <span class="font-serif text-2xl text-odallo-cream group-hover:text-odallo-gold transition-colors duration-300">Restoration</span>
+  <span class="font-serif text-2xl text-odallo-cream group-hover:text-odallo-gold transition-colors duration-300">Custom INstruments</span>
   <div class="h-px w-0 group-hover:w-16 bg-odallo-gold/60 transition-all duration-500 mt-2"></div>
 </a>
 
@@ -159,9 +163,11 @@ body{background-color:#0a0a0a;color:#F5EDE0;font-family:'Inter',system-ui,sans-s
         </div>
       </div>
     </div>
-        <div class="absolute bottom-12 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-3 fade-up scroll-indicator">
-  <span class="text-[10px] tracking-[3px] text-odallo-muted uppercase">Scroll to begin</span>
-  <div class="scroll-line"></div>
+        <div class="absolute bottom-10 left-0 right-0 flex justify-center fade-up scroll-indicator pointer-events-none">
+  <div class="flex flex-col items-center gap-3">
+    <span class="text-[10px] tracking-[3px] text-odallo-muted uppercase">Scroll to begin</span>
+    <div class="scroll-line"></div>
+  </div>
 </div>
   </section>
 
@@ -321,37 +327,63 @@ body{background-color:#0a0a0a;color:#F5EDE0;font-family:'Inter',system-ui,sans-s
       </p>
     </div>
 
-    <!-- Electric Guitar - Featured -->
-      <div class="luxury-card rounded-sm overflow-hidden fade-up mb-10">
-  <div class="grid lg:grid-cols-2">
-    
-    <!-- Image Side (reduced height) -->
-    <div class="img-zoom h-64 md:h-72 lg:h-auto min-h-[260px] max-h-[320px]">
-      <img src="images/electric.jpg" alt="Custom Electric Guitar" class="w-full h-full object-cover" />
-    </div>
+    <!-- ==================== ACOUSTIC GUITAR (NOW FIRST) ==================== -->
+    <div class="luxury-card rounded-sm overflow-hidden fade-up mb-10">
+      <div class="grid lg:grid-cols-2">
+        
+        <!-- Text Side -->
+        <div class="order-2 lg:order-1 p-8 md:p-12 flex flex-col justify-center">
+          <span class="text-odallo-gold text-xs tracking-[0.25em] uppercase mb-3">Handcrafted Resonance</span>
+          <h3 class="font-serif text-3xl md:text-4xl text-odallo-cream mb-4">Custom Acoustic Guitar</h3>
+          <p class="text-odallo-muted font-light leading-relaxed mb-6">
+            Warm, responsive, and built for the player who values pure acoustic tone. Premium tonewoods, careful bracing, and a finish that feels as good as it sounds.
+          </p>
+          <div class="flex flex-wrap items-center gap-6">
+            <span class="price-tag text-2xl text-odallo-gold">Starting from KSh 18,000</span>
+            <a href="#contact" class="btn-outline px-7 py-3 text-xs tracking-widest uppercase rounded-sm">Commission Yours</a>
+          </div>
+        </div>
 
-    <!-- Text Side -->
-    <div class="p-8 md:p-12 flex flex-col justify-center">
-      <span class="text-odallo-gold text-xs tracking-[0.25em] uppercase mb-3">Signature Build</span>
-      <h3 class="font-serif text-3xl md:text-4xl text-odallo-cream mb-4">Custom Electric Guitar</h3>
-      <p class="text-odallo-muted font-light leading-relaxed mb-6">
-        Built to your preferred specifications — pickups, hardware, neck profile, and finish. From the first sketch to the final polish, every detail is crafted for you.
-      </p>
-      <div class="flex flex-wrap items-center gap-6">
-        <span class="price-tag text-2xl text-odallo-gold">Starting from KSh 35,000</span>
-        <a href="#contact" class="btn-gold px-7 py-3 text-xs tracking-widest uppercase rounded-sm">Commission Yours</a>
+        <!-- Image Carousel Side -->
+        <div class="order-1 lg:order-2 relative group">
+          <div id="acoustic-carousel" class="relative w-full h-72 md:h-80 lg:h-full min-h-[290px] max-h-[340px] overflow-hidden">
+            
+            <!-- Image 1 -->
+            <img src="images/acoustic.webp" 
+                 alt="Custom Acoustic Guitar 1" 
+                 class="acoustic-slide absolute inset-0 w-full h-full object-cover opacity-100 transition-opacity duration-700 ease-in-out">
+            
+            <!-- Image 2 -->
+            <img src="images/acoustic2.webp" 
+                 alt="Custom Acoustic Guitar 2" 
+                 class="acoustic-slide absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-700 ease-in-out">
+          </div>
+
+          <!-- Dots -->
+          <div class="absolute bottom-4 left-0 right-0 flex justify-center gap-2 z-10">
+            <button class="acoustic-dot w-8 h-1 rounded-full bg-odallo-gold transition-all duration-300" data-index="0"></button>
+            <button class="acoustic-dot w-3 h-1 rounded-full bg-odallo-gold/40 transition-all duration-300" data-index="1"></button>
+          </div>
+
+          <!-- Arrows -->
+          <button id="acoustic-prev" class="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full border border-odallo-gold/40 text-odallo-gold bg-black/50 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center hover:border-odallo-gold hover:text-odallo-cream">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7"/></svg>
+          </button>
+          <button id="acoustic-next" class="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full border border-odallo-gold/40 text-odallo-gold bg-black/50 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center hover:border-odallo-gold hover:text-odallo-cream">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+
       </div>
     </div>
 
-  </div>
-</div>
-    <!-- Bass Guitars Grid -->
+    <!-- ==================== BASS GUITARS GRID ==================== -->
     <div class="grid md:grid-cols-3 gap-6 mb-10 fade-up">
       
       <!-- 4-String Bass -->
       <div class="luxury-card rounded-sm overflow-hidden group">
         <div class="img-zoom h-52">
-          <img src="images/2.jpg" alt="Custom 4-String Bass" class="w-full h-full object-cover" />
+          <img src="images/string.jpg" alt="Custom 4-String Bass" class="w-full h-full object-cover" />
         </div>
         <div class="p-6">
           <h4 class="font-serif text-xl text-odallo-cream mb-1">Custom Bass Guitar</h4>
@@ -367,7 +399,7 @@ body{background-color:#0a0a0a;color:#F5EDE0;font-family:'Inter',system-ui,sans-s
       <!-- 5-String Bass -->
       <div class="luxury-card rounded-sm overflow-hidden group">
         <div class="img-zoom h-52">
-          <img src="images/restore3.jpg" alt="Custom 5-String Bass" class="w-full h-full object-cover" />
+          <img src="images/5.jpg" alt="Custom 5-String Bass" class="w-full h-full object-cover" />
         </div>
         <div class="p-6">
           <h4 class="font-serif text-xl text-odallo-cream mb-1">Custom Bass Guitar</h4>
@@ -383,7 +415,7 @@ body{background-color:#0a0a0a;color:#F5EDE0;font-family:'Inter',system-ui,sans-s
       <!-- 6-String Bass -->
       <div class="luxury-card rounded-sm overflow-hidden group">
         <div class="img-zoom h-52">
-          <img src="images/vincent-odallo.jpg" alt="Custom 6-String Bass" class="w-full h-full object-cover" />
+          <img src="images/6.jpg" alt="Custom 6-String Bass" class="w-full h-full object-cover" />
         </div>
         <div class="p-6">
           <h4 class="font-serif text-xl text-odallo-cream mb-1">Custom Bass Guitar</h4>
@@ -397,56 +429,30 @@ body{background-color:#0a0a0a;color:#F5EDE0;font-family:'Inter',system-ui,sans-s
       </div>
     </div>
 
-    <!-- Acoustic Guitar -->
-      <!-- Acoustic Guitar -->
-<div class="luxury-card rounded-sm overflow-hidden fade-up">
-  <div class="grid lg:grid-cols-2">
-    
-    <!-- Text Side -->
-    <div class="order-2 lg:order-1 p-8 md:p-12 flex flex-col justify-center">
-      <span class="text-odallo-gold text-xs tracking-[0.25em] uppercase mb-3">Handcrafted Resonance</span>
-      <h3 class="font-serif text-3xl md:text-4xl text-odallo-cream mb-4">Custom Acoustic Guitar</h3>
-      <p class="text-odallo-muted font-light leading-relaxed mb-6">
-        Warm, responsive, and built for the player who values pure acoustic tone. Premium tonewoods, careful bracing, and a finish that feels as good as it sounds.
-      </p>
-      <div class="flex flex-wrap items-center gap-6">
-        <span class="price-tag text-2xl text-odallo-gold">Starting from KSh 18,000</span>
-        <a href="#contact" class="btn-outline px-7 py-3 text-xs tracking-widest uppercase rounded-sm">Commission Yours</a>
+    <!-- ==================== ELECTRIC GUITAR (NOW AT THE BOTTOM) ==================== -->
+    <div class="luxury-card rounded-sm overflow-hidden fade-up">
+      <div class="grid lg:grid-cols-2">
+        
+        <!-- Image Side -->
+        <div class="img-zoom h-64 md:h-72 lg:h-auto min-h-[260px] max-h-[320px]">
+          <img src="images/electric.jpg" alt="Custom Electric Guitar" class="w-full h-full object-cover" />
+        </div>
+
+        <!-- Text Side -->
+        <div class="p-8 md:p-12 flex flex-col justify-center">
+          <span class="text-odallo-gold text-xs tracking-[0.25em] uppercase mb-3">Signature Build</span>
+          <h3 class="font-serif text-3xl md:text-4xl text-odallo-cream mb-4">Custom Electric Guitar</h3>
+          <p class="text-odallo-muted font-light leading-relaxed mb-6">
+            Built to your preferred specifications — pickups, hardware, neck profile, and finish. From the first sketch to the final polish, every detail is crafted for you.
+          </p>
+          <div class="flex flex-wrap items-center gap-6">
+            <span class="price-tag text-2xl text-odallo-gold">Starting from KSh 35,000</span>
+            <a href="#contact" class="btn-gold px-7 py-3 text-xs tracking-widest uppercase rounded-sm">Commission Yours</a>
+          </div>
+        </div>
+
       </div>
     </div>
-
-    <!-- Image Carousel Side -->
-    <div class="order-1 lg:order-2 relative group">
-      <div id="acoustic-carousel" class="relative w-full h-72 md:h-80 lg:h-full min-h-[290px] max-h-[340px] overflow-hidden">
-        
-        <!-- Image 1 -->
-        <img src="images/acoustic.webp" 
-             alt="Custom Acoustic Guitar 1" 
-             class="acoustic-slide absolute inset-0 w-full h-full object-cover opacity-100 transition-opacity duration-700 ease-in-out">
-        
-        <!-- Image 2 (change this path to your second image) -->
-        <img src="images/acoustic2.webp" 
-             alt="Custom Acoustic Guitar 2" 
-             class="acoustic-slide absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-700 ease-in-out">
-      </div>
-
-      <!-- Dots -->
-      <div class="absolute bottom-4 left-0 right-0 flex justify-center gap-2 z-10">
-        <button class="acoustic-dot w-8 h-1 rounded-full bg-odallo-gold transition-all duration-300" data-index="0"></button>
-        <button class="acoustic-dot w-3 h-1 rounded-full bg-odallo-gold/40 transition-all duration-300" data-index="1"></button>
-      </div>
-
-      <!-- Optional arrows (appear on hover) -->
-      <button id="acoustic-prev" class="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full border border-odallo-gold/40 text-odallo-gold bg-black/50 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center hover:border-odallo-gold hover:text-odallo-cream">
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7"/></svg>
-      </button>
-      <button id="acoustic-next" class="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full border border-odallo-gold/40 text-odallo-gold bg-black/50 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center hover:border-odallo-gold hover:text-odallo-cream">
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7"/></svg>
-      </button>
-    </div>
-
-  </div>
-</div>   
 
   </div>
 </section>
@@ -698,21 +704,84 @@ body{background-color:#0a0a0a;color:#F5EDE0;font-family:'Inter',system-ui,sans-s
   </section>
 
   <!-- FOOTER -->
-  <footer class="border-t border-odallo-gold/10 py-12">
-    <div class="max-w-7xl mx-auto px-5 sm:px-8">
-      <div class="flex flex-col md:flex-row items-center justify-between gap-6">
-        <div class="flex items-center gap-3">
-          <img src="images/odallo-logo.jpg" alt="Odallo Guitars" class="h-10 w-auto object-contain" />
+  <!-- FOOTER -->
+<footer class="border-t border-odallo-gold/15 bg-odallo-black pt-16 pb-10">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8">
+   
+    <div class="grid md:grid-cols-3 gap-12 mb-14">
+     
+      <!-- Brand -->
+      <div class="space-y-5">
+        <img src="images/odallo-logo.jpg" alt="Odallo Guitars" class="h-12 w-auto object-contain" />
+        <p class="text-odallo-muted text-sm font-light leading-relaxed max-w-xs">
+          Handcrafted custom guitars & basses. Built with soul in Nairobi, Kenya.
+        </p>
+      </div>
+
+      <!-- Quick Links -->
+      <div>
+        <h4 class="text-odallo-gold text-xs tracking-[0.25em] uppercase mb-5">Explore</h4>
+        <div class="flex flex-col gap-3">
+          <a href="#custom" class="text-odallo-muted text-sm hover:text-odallo-cream transition-colors">Our Story</a>
+          <a href="#instruments" class="text-odallo-muted text-sm hover:text-odallo-cream transition-colors">Custom Instruments</a>
+          <a href="#services" class="text-odallo-muted text-sm hover:text-odallo-cream transition-colors">Services</a>
+          <a href="#restoration" class="text-odallo-muted text-sm hover:text-odallo-cream transition-colors">Restoration</a>
+          <a href="#accessories" class="text-odallo-muted text-sm hover:text-odallo-cream transition-colors">Accessories</a>
         </div>
-        <p class="text-odallo-muted text-sm text-center">© 2026 Odallo Guitars. All rights reserved. Handcrafted with passion in Nairobi.</p>
-        <div class="flex gap-6 text-xs tracking-widest uppercase text-odallo-muted">
-          <a href="#custom" class="hover:text-odallo-gold transition-colors">Builds</a>
-          <a href="#services" class="hover:text-odallo-gold transition-colors">Services</a>
-          <a href="#contact" class="hover:text-odallo-gold transition-colors">Contact</a>
+      </div>
+
+      <!-- Contact -->
+      <div>
+        <h4 class="text-odallo-gold text-xs tracking-[0.25em] uppercase mb-5">Get in Touch</h4>
+        <div class="space-y-4">
+          <a href="mailto:guitarfixandaccessories@gmail.com" class="flex items-center gap-3 text-odallo-muted hover:text-odallo-gold transition-colors group">
+            <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+            <span class="text-sm">guitarfixandaccessories@gmail.com</span>
+          </a>
+         
+          <a href="https://wa.me/254707570866" target="_blank" class="flex items-center gap-3 text-odallo-muted hover:text-odallo-gold transition-colors group">
+            <svg class="w-4 h-4 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.435 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            <span class="text-sm">+254 707 570 866</span>
+          </a>
+
+          <a href="https://instagram.com/odalloguitars" target="_blank" class="flex items-center gap-3 text-odallo-muted hover:text-odallo-gold transition-colors group">
+            <svg class="w-4 h-4 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+            <span class="text-sm">@odalloguitars</span>
+          </a>
         </div>
       </div>
     </div>
-  </footer>
+
+    <!-- Bottom bar -->
+    <div class="pt-8 border-t border-odallo-gold/10">
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-4 mb-6">
+        <p class="text-odallo-muted text-xs tracking-wide text-center sm:text-left">
+          © 2026 Odallo Guitars. Handcrafted with passion in Nairobi, Kenya.
+        </p>
+        <div class="flex items-center gap-6">
+          <a href="https://wa.me/254707570866" target="_blank" class="text-odallo-muted hover:text-odallo-gold transition-colors" aria-label="WhatsApp">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.435 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          </a>
+          <a href="https://instagram.com/odalloguitars" target="_blank" class="text-odallo-muted hover:text-odallo-gold transition-colors" aria-label="Instagram">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Website credit -->
+      <div class="pt-5 border-t border-odallo-gold/10 text-center">
+        <a href="https://codewithwes.co.ke" target="_blank" rel="noopener" 
+           class="inline-flex items-center gap-2 text-odallo-muted/70 hover:text-odallo-gold transition-all duration-300 group text-xs tracking-wide">
+          <span>Designed & built by</span>
+          <span class="font-medium text-odallo-cream/90 group-hover:text-odallo-gold transition-colors">codewithwes</span>
+          <svg class="w-3.5 h-3.5 opacity-60 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
 
   <script src="script.js"></script>
 </body>

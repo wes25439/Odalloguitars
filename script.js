@@ -50,19 +50,27 @@ const observer = new IntersectionObserver((entries) => {
 fadeEls.forEach(el => observer.observe(el));
 
 // Contact form handler
+// Contact form → WhatsApp
 function handleSubmit(e) {
   e.preventDefault();
   const form = e.target;
-  const success = document.getElementById('form-success');
-  form.classList.add('opacity-50', 'pointer-events-none');
-  setTimeout(() => {
-    form.reset();
-    form.classList.remove('opacity-50', 'pointer-events-none');
-    success.classList.remove('hidden');
-    setTimeout(() => success.classList.add('hidden'), 5000);
-  }, 800);
-}
+  const name = form.name.value.trim();
+  const phone = form.phone.value.trim();
+  const interest = form.interest.value;
+  const message = form.message.value.trim();
 
+  const text = `Hello Odallo Guitars,%0A%0A*Name:* ${name}%0A*Phone:* ${phone}%0A*Interest:* ${interest}%0A%0A*Message:*%0A${message}`;
+  
+  const whatsappURL = `https://wa.me/254707570866?text=${text}`;
+  
+  window.open(whatsappURL, '_blank');
+  
+  // Optional visual feedback
+  const success = document.getElementById('form-success');
+  success.classList.remove('hidden');
+  form.reset();
+  setTimeout(() => success.classList.add('hidden'), 4000);
+}
 // Smooth scroll for anchor links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function (e) {
@@ -74,17 +82,25 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   });
 });
 
-
+// Always land on the home section after refresh
+if ('scrollRestoration' in history) {
+  history.scrollRestoration = 'manual';
+}
+window.addEventListener('load', () => {
+  if (window.location.hash) {
+    history.replaceState(null, null, ' ');
+  }
+  window.scrollTo(0, 0);
+});
 /* ======================================================
    SERVICES CAROUSEL (Editorial / Workshop style)
    ====================================================== */
 const IMAGE_LIST = [
     "images/estore2.jpg",
+    "images/shutter.jpg",
     "images/fix1.jpg",
-    "images/2.jpg",
-    "images/restore3.jpg",
-    "images/vincent-odallo.jpg",
-    "images/showroom.jpg"
+    "images/69mQr.jpg",
+    
 ];
 
 (function() {
@@ -175,10 +191,10 @@ document.querySelector('#services .fade-up')?.classList.add('visible');
    ACCESSORIES PREMIUM CAROUSEL
    ====================================================== */
 const ACCESSORIES_IMAGES = [
-    "images/accessories.jpg",
-    "images/estore2.jpg",
-    "images/2.jpg",
-    "images/restore3.jpg"
+    "images/ACCES.webp",
+    "images/ACCES2.webp",
+    "images/ACCES3.jpg"
+    
 ];
 
 (function() {
@@ -252,25 +268,26 @@ const ACCESSORIES_IMAGES = [
 })();
 
 /* ======================================================
-   HERO PARALLAX – iPhone Safari friendly
+   HERO PARALLAX – Real tilt on iPhone + finger fallback
    ====================================================== */
 (function () {
   const heroImg = document.getElementById('hero-img');
   const heroSection = document.getElementById('home');
   if (!heroImg || !heroSection) return;
 
-  const isMobile = window.matchMedia('(max-width: 768px)').matches || 
-                   ('ontouchstart' in window);
-  if (!isMobile) return;
+  const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+  if (!isTouchDevice) return; // only run on mobile/tablet
 
-  let isActive = false;
   let currentX = 0, currentY = 0;
   let targetX = 0, targetY = 0;
+  let permissionGranted = false;
+  let usingOrientation = false;
 
-  const baseScale = 1.25;
-  const maxOffset = 30;
-  const ease = 0.12;
+  const maxOffset = 28;
+  const ease = 0.1;
+  const baseScale = 1.22;
 
+  // Smooth animation loop
   function animate() {
     currentX += (targetX - currentX) * ease;
     currentY += (targetY - currentY) * ease;
@@ -279,86 +296,88 @@ const ACCESSORIES_IMAGES = [
   }
   requestAnimationFrame(animate);
 
-  function activate() {
-    if (!isActive) {
-      isActive = true;
-      heroImg.classList.add('parallax-active');
-    }
-  }
-
   // ---------- Device Orientation (real tilt) ----------
   function handleOrientation(e) {
     if (e.gamma == null || e.beta == null) return;
-    activate();
 
-    const x = Math.max(-1, Math.min(1, e.gamma / 35));
-    const y = Math.max(-1, Math.min(1, (e.beta - 45) / 35));
+    usingOrientation = true;
 
-    targetX = x * maxOffset * 1.6;
-    targetY = y * maxOffset * 0.9;
+    // gamma = left/right tilt, beta = front/back
+    const x = Math.max(-1, Math.min(1, e.gamma / 30));
+    const y = Math.max(-1, Math.min(1, (e.beta - 45) / 30));
+
+    targetX = x * maxOffset;
+    targetY = y * maxOffset * 0.7;
   }
 
-  function enableOrientation() {
+  function startOrientation() {
     window.addEventListener('deviceorientation', handleOrientation, true);
+    permissionGranted = true;
+    console.log('Device orientation active');
   }
 
-  // iOS 13+ permission flow
-  function requestPermission() {
+  // iOS 13+ requires permission after user gesture
+  function requestOrientationPermission() {
     if (typeof DeviceOrientationEvent !== 'undefined' &&
         typeof DeviceOrientationEvent.requestPermission === 'function') {
 
       DeviceOrientationEvent.requestPermission()
         .then(state => {
           if (state === 'granted') {
-            enableOrientation();
+            startOrientation();
           } else {
-            console.log('Motion permission denied');
+            console.log('Motion permission denied – using finger drag');
           }
         })
-        .catch(console.error);
+        .catch(err => {
+          console.log('Permission error:', err);
+        });
     } else {
-      // Android or older iOS
-      enableOrientation();
+      // Android or older iOS – just start
+      startOrientation();
     }
   }
 
-  // Ask for permission on first tap/click of the hero
-  const askOnce = () => {
-    requestPermission();
-    heroSection.removeEventListener('click', askOnce);
-    heroSection.removeEventListener('touchstart', askOnce);
+  // Ask for permission on first interaction with the hero
+  const askPermission = () => {
+    requestOrientationPermission();
+    heroSection.removeEventListener('touchstart', askPermission);
+    heroSection.removeEventListener('click', askPermission);
   };
-  heroSection.addEventListener('click', askOnce, { once: true });
-  heroSection.addEventListener('touchstart', askOnce, { once: true });
 
-  // ---------- Touch drag fallback (always works) ----------
+  heroSection.addEventListener('touchstart', askPermission, { once: true, passive: true });
+  heroSection.addEventListener('click', askPermission, { once: true });
+
+  // ---------- Finger drag (fallback only) ----------
   let touching = false;
 
   heroSection.addEventListener('touchstart', () => {
+    if (usingOrientation) return; // don’t override real tilt
     touching = true;
-    activate();
   }, { passive: true });
 
   heroSection.addEventListener('touchmove', (e) => {
-    if (!touching) return;
+    if (!touching || usingOrientation) return;
+
     const t = e.touches[0];
     const rect = heroSection.getBoundingClientRect();
 
     const x = ((t.clientX - rect.left) / rect.width - 0.5) * 2;
     const y = ((t.clientY - rect.top) / rect.height - 0.5) * 2;
 
-    targetX = x * maxOffset * 1.4;
-    targetY = y * maxOffset * 0.9;
+    targetX = x * maxOffset * 1.2;
+    targetY = y * maxOffset * 0.8;
   }, { passive: true });
 
   heroSection.addEventListener('touchend', () => {
     touching = false;
-    targetX = 0;
-    targetY = 0;
+    if (!usingOrientation) {
+      targetX = 0;
+      targetY = 0;
+    }
   }, { passive: true });
 
 })();
-
 /* ======================================================
    ELEGANT LOADING SCREEN + HERO ANIMATIONS
    ====================================================== */
@@ -563,9 +582,8 @@ createCardCarousel(
   'restore-card-next',
   [
     'images/2.jpg',
-    'images/restore3.jpg',
-    'images/estore2.jpg',
-    'images/form1.jpg'
+    'images/hoHs8.jpg',
+    'images/xt2Z6.jpg'
   ]
 );
 
@@ -577,9 +595,8 @@ createCardCarousel(
   'refinish-card-next',
   [
     'images/restore3.jpg',
-    'images/2.jpg',
-    'images/accessories.jpg',
-    'images/showroom.jpg'
+    'images/restore.jpg'
+    
   ]
 );
 
