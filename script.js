@@ -414,8 +414,8 @@ const ACCESSORIES_IMAGES = [
         // Typewriter starts after the title finishes
         setTimeout(startTypewriter, 2200);
 
-      }, 700);
-    }, 1800);
+      }, 400);
+    }, 600);
   });
 })();
 
