@@ -268,25 +268,26 @@ const ACCESSORIES_IMAGES = [
 })();
 
 /* ======================================================
-   HERO PARALLAX – Android automatic tilt + Premium iPhone finger drag
+   HERO PARALLAX – Real tilt on iPhone + finger fallback
    ====================================================== */
 (function () {
   const heroImg = document.getElementById('hero-img');
   const heroSection = document.getElementById('home');
   if (!heroImg || !heroSection) return;
 
-  const isMobile = window.matchMedia('(max-width: 768px)').matches ||
-                   ('ontouchstart' in window);
-  if (!isMobile) return;
+  const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+  if (!isTouchDevice) return; // only run on mobile/tablet
 
   let currentX = 0, currentY = 0;
   let targetX = 0, targetY = 0;
-  let orientationActive = false;
+  let permissionGranted = false;
+  let usingOrientation = false;
 
-  const baseScale = 1.25;
-  const maxOffset = 32;
-  const ease = 0.11;
+  const maxOffset = 28;
+  const ease = 0.1;
+  const baseScale = 1.22;
 
+  // Smooth animation loop
   function animate() {
     currentX += (targetX - currentX) * ease;
     currentY += (targetY - currentY) * ease;
@@ -295,69 +296,82 @@ const ACCESSORIES_IMAGES = [
   }
   requestAnimationFrame(animate);
 
-  // ---------- Real tilt handler ----------
+  // ---------- Device Orientation (real tilt) ----------
   function handleOrientation(e) {
     if (e.gamma == null || e.beta == null) return;
-    orientationActive = true;
 
-    const x = Math.max(-1, Math.min(1, e.gamma / 32));
-    const y = Math.max(-1, Math.min(1, (e.beta - 45) / 32));
+    usingOrientation = true;
 
-    targetX = x * maxOffset * 1.5;
-    targetY = y * maxOffset * 0.85;
+    // gamma = left/right tilt, beta = front/back
+    const x = Math.max(-1, Math.min(1, e.gamma / 30));
+    const y = Math.max(-1, Math.min(1, (e.beta - 45) / 30));
+
+    targetX = x * maxOffset;
+    targetY = y * maxOffset * 0.7;
   }
 
-  function enableOrientation() {
+  function startOrientation() {
     window.addEventListener('deviceorientation', handleOrientation, true);
+    permissionGranted = true;
+    console.log('Device orientation active');
   }
 
-  // ---------- Enable orientation ----------
-  if (typeof DeviceOrientationEvent !== 'undefined' &&
-      typeof DeviceOrientationEvent.requestPermission === 'function') {
-    // iOS – ask permission on first touch
-    const askOnce = () => {
+  // iOS 13+ requires permission after user gesture
+  function requestOrientationPermission() {
+    if (typeof DeviceOrientationEvent !== 'undefined' &&
+        typeof DeviceOrientationEvent.requestPermission === 'function') {
+
       DeviceOrientationEvent.requestPermission()
         .then(state => {
-          if (state === 'granted') enableOrientation();
+          if (state === 'granted') {
+            startOrientation();
+          } else {
+            console.log('Motion permission denied – using finger drag');
+          }
         })
-        .catch(() => {});
-      heroSection.removeEventListener('touchstart', askOnce);
-    };
-    heroSection.addEventListener('touchstart', askOnce, { once: true, passive: true });
-  } else {
-    // Android → start automatically (no touch needed)
-    enableOrientation();
-    setTimeout(enableOrientation, 300); // extra safety
+        .catch(err => {
+          console.log('Permission error:', err);
+        });
+    } else {
+      // Android or older iOS – just start
+      startOrientation();
+    }
   }
 
-  // ---------- Premium finger drag (mainly for iPhone) ----------
-  let touching = false;
-  let startX = 0, startY = 0;
+  // Ask for permission on first interaction with the hero
+  const askPermission = () => {
+    requestOrientationPermission();
+    heroSection.removeEventListener('touchstart', askPermission);
+    heroSection.removeEventListener('click', askPermission);
+  };
 
-  heroSection.addEventListener('touchstart', (e) => {
-    if (orientationActive) return;
+  heroSection.addEventListener('touchstart', askPermission, { once: true, passive: true });
+  heroSection.addEventListener('click', askPermission, { once: true });
+
+  // ---------- Finger drag (fallback only) ----------
+  let touching = false;
+
+  heroSection.addEventListener('touchstart', () => {
+    if (usingOrientation) return; // don’t override real tilt
     touching = true;
-    const t = e.touches[0];
-    startX = t.clientX;
-    startY = t.clientY;
   }, { passive: true });
 
   heroSection.addEventListener('touchmove', (e) => {
-    if (!touching || orientationActive) return;
+    if (!touching || usingOrientation) return;
 
     const t = e.touches[0];
     const rect = heroSection.getBoundingClientRect();
 
-    const deltaX = (t.clientX - startX) / rect.width;
-    const deltaY = (t.clientY - startY) / rect.height;
+    const x = ((t.clientX - rect.left) / rect.width - 0.5) * 2;
+    const y = ((t.clientY - rect.top) / rect.height - 0.5) * 2;
 
-    targetX = Math.max(-maxOffset, Math.min(maxOffset, deltaX * maxOffset * 2.2));
-    targetY = Math.max(-maxOffset, Math.min(maxOffset, deltaY * maxOffset * 1.6));
+    targetX = x * maxOffset * 1.2;
+    targetY = y * maxOffset * 0.8;
   }, { passive: true });
 
   heroSection.addEventListener('touchend', () => {
     touching = false;
-    if (!orientationActive) {
+    if (!usingOrientation) {
       targetX = 0;
       targetY = 0;
     }
