@@ -297,15 +297,18 @@ const ACCESSORIES_IMAGES = [
 
   // ---------- Real tilt handler ----------
   function handleOrientation(e) {
-    if (e.gamma == null || e.beta == null) return;
-    orientationActive = true;
+  if (e.gamma == null || e.beta == null) return;
+  orientationActive = true;
 
-    const x = Math.max(-1, Math.min(1, e.gamma / 32));
-    const y = Math.max(-1, Math.min(1, (e.beta - 45) / 32));
+  // Stop the CSS Ken Burns animation
+  heroImg.classList.add('parallax-active');
 
-    targetX = x * maxOffset * 1.5;
-    targetY = y * maxOffset * 0.85;
-  }
+  const x = Math.max(-1, Math.min(1, e.gamma / 32));
+  const y = Math.max(-1, Math.min(1, (e.beta - 45) / 32));
+
+  targetX = x * maxOffset * 1.5;
+  targetY = y * maxOffset * 0.85;
+}
 
   function enableOrientation() {
     window.addEventListener('deviceorientation', handleOrientation, true);
