@@ -267,7 +267,6 @@ const ACCESSORIES_IMAGES = [
     startAutoPlay();
 })();
 
-
 /* ======================================================
    HERO PARALLAX – Android tilt + Premium iPhone finger drag
    ====================================================== */
@@ -275,38 +274,47 @@ const ACCESSORIES_IMAGES = [
   const heroImg = document.getElementById('hero-img');
   const heroSection = document.getElementById('home');
   if (!heroImg || !heroSection) return;
+
   const isMobile = window.matchMedia('(max-width: 768px)').matches ||
                    ('ontouchstart' in window);
   if (!isMobile) return;
+
   let currentX = 0, currentY = 0;
   let targetX = 0, targetY = 0;
   let orientationActive = false;
+
   const baseScale = 1.25;
   const maxOffset = 32;
   const ease = 0.11;
+
   function animate() {
     currentX += (targetX - currentX) * ease;
     currentY += (targetY - currentY) * ease;
-    heroImg.style.transform = scale(${baseScale}) translate3d(${currentX}px, ${currentY}px, 0);
+    heroImg.style.transform = `scale(${baseScale}) translate3d(${currentX}px, ${currentY}px, 0)`;
     requestAnimationFrame(animate);
   }
   requestAnimationFrame(animate);
-  // ---------- Android / real tilt ----------
+
+  // ---------- Real tilt handler ----------
   function handleOrientation(e) {
     if (e.gamma == null || e.beta == null) return;
     orientationActive = true;
+
     const x = Math.max(-1, Math.min(1, e.gamma / 32));
     const y = Math.max(-1, Math.min(1, (e.beta - 45) / 32));
+
     targetX = x * maxOffset * 1.5;
     targetY = y * maxOffset * 0.85;
   }
+
   function enableOrientation() {
     window.addEventListener('deviceorientation', handleOrientation, true);
   }
-  // Try to enable orientation (works well on Android)
+
+  // ---------- Enable orientation ----------
   if (typeof DeviceOrientationEvent !== 'undefined' &&
       typeof DeviceOrientationEvent.requestPermission === 'function') {
-    // iOS – we still try, but don’t force it
+    // iOS – ask on first touch
     const askOnce = () => {
       DeviceOrientationEvent.requestPermission()
         .then(state => {
@@ -317,37 +325,44 @@ const ACCESSORIES_IMAGES = [
     };
     heroSection.addEventListener('touchstart', askOnce, { once: true, passive: true });
   } else {
-    // Android
+    // Android → start automatically
     enableOrientation();
+    setTimeout(enableOrientation, 300);
   }
-  // ---------- Premium finger drag (especially for iPhone) ----------
+
+  // ---------- Premium finger drag (for iPhone) ----------
   let touching = false;
   let startX = 0, startY = 0;
+
   heroSection.addEventListener('touchstart', (e) => {
-    if (orientationActive) return; // don’t fight real tilt
+    if (orientationActive) return;
     touching = true;
     const t = e.touches[0];
     startX = t.clientX;
     startY = t.clientY;
   }, { passive: true });
+
   heroSection.addEventListener('touchmove', (e) => {
     if (!touching || orientationActive) return;
+
     const t = e.touches[0];
     const rect = heroSection.getBoundingClientRect();
-    // Smooth relative movement
+
     const deltaX = (t.clientX - startX) / rect.width;
     const deltaY = (t.clientY - startY) / rect.height;
+
     targetX = Math.max(-maxOffset, Math.min(maxOffset, deltaX * maxOffset * 2.2));
     targetY = Math.max(-maxOffset, Math.min(maxOffset, deltaY * maxOffset * 1.6));
   }, { passive: true });
+
   heroSection.addEventListener('touchend', () => {
     touching = false;
-    // Gentle spring back
     if (!orientationActive) {
       targetX = 0;
       targetY = 0;
     }
   }, { passive: true });
+
 })();
 /* ======================================================
    ELEGANT LOADING SCREEN + HERO ANIMATIONS
